@@ -3105,6 +3105,14 @@ document.addEventListener('click', (e) => {
       if (w) w.classList.add('show');
     }
   } catch (e) {}
+  // los productos cargan después y empujan la página: volver a ubicar la Ronda
+  if (location.hash === '#ronda-fogonera') {
+    var moved = false;
+    ['wheel', 'touchstart', 'keydown'].forEach(function (ev) { window.addEventListener(ev, function () { moved = true; }, { once: true, passive: true }); });
+    var goRonda = function () { if (moved) return; var s = document.getElementById('ronda-fogonera'); if (s) s.scrollIntoView({ block: 'start' }); };
+    window.addEventListener('load', goRonda);
+    [800, 1800, 3000].forEach(function (ms) { setTimeout(goRonda, ms); });
+  }
 })();
 
 /* ── SORTEOS: TABS + CUENTA REGRESIVA EN VIVO ── */
