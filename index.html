@@ -1247,6 +1247,44 @@ footer::before {
   text-decoration-style: dotted; cursor: pointer; transition: color 0.2s;
 }
 .ronda-disclaimer-link:hover { color: var(--ember-dark); }
+#ronda-fogonera { scroll-margin-top: 110px; }
+/* bienvenida desde el QR de la caja + pasos para sumarse */
+.ronda-welcome {
+  display: none; max-width: 620px; margin: 0 auto 1.6rem; text-align: center;
+  padding: 1.2rem 1.6rem; background: var(--brown-dark); color: var(--cream);
+  position: relative; z-index: 1;
+}
+.ronda-welcome.show { display: block; }
+.ronda-welcome-title { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.35rem; color: var(--gold-light); margin-bottom: 0.3rem; }
+.ronda-welcome p { font-size: 1rem; font-style: italic; }
+.ronda-how {
+  max-width: 620px; margin: 0 auto 3rem; text-align: center;
+  padding: 1.8rem 1.8rem 1.5rem; border: 1px dashed var(--gold); background: var(--cream);
+  position: relative; z-index: 1;
+}
+.ronda-how-intro { font-size: 1.02rem; line-height: 1.7; color: var(--brown-dark); margin-bottom: 1.3rem; }
+.ronda-how-intro strong { color: var(--ember); }
+.ronda-steps { list-style: none; padding: 0; margin: 0 auto 1.5rem; text-align: left; max-width: 460px; display: grid; gap: 0.8rem; }
+.ronda-steps li { display: flex; align-items: center; gap: 0.9rem; }
+.ronda-step-num {
+  flex: 0 0 auto; width: 2.1rem; height: 2.1rem; border-radius: 50%;
+  background: var(--brown-dark); color: var(--gold-light);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.05rem;
+}
+.ronda-step-txt { font-size: 1rem; line-height: 1.45; color: var(--brown-dark); }
+.ronda-step-txt strong { color: var(--ember); }
+.ronda-how-btn {
+  display: inline-block; padding: 0.95rem 1.6rem; background: #25D366; color: #fff;
+  font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.05rem;
+  text-decoration: none; letter-spacing: 0.02em; transition: transform 0.2s, background 0.2s;
+}
+.ronda-how-btn:hover { background: #1ebe5b; transform: translateY(-2px); }
+.ronda-how-alt { font-size: 0.88rem; font-style: italic; color: var(--brown-light); margin-top: 0.7rem; }
+@media (max-width: 600px) {
+  .ronda-how { padding: 1.4rem 1.1rem 1.2rem; }
+  .ronda-how-btn { display: block; padding: 0.95rem 1rem; }
+}
 .ronda-counter {
   text-align: center; margin: 0 auto 3rem; font-family: 'Playfair Display', serif;
   font-size: 1.3rem; font-weight: 700; color: var(--brown-dark);
@@ -2023,8 +2061,20 @@ footer::before {
     <p class="section-subtitle">Los fogoneros que ya se sumaron con su mate 🧉🔥</p>
   </div>
 
-  <div class="ronda-disclaimer">
-    <p>Para aparecer en la Ronda Fogonera, mencioná a <strong>@fogonmates</strong> y subí una historia con el mate a tu Instagram etiquetándonos. Como no siempre nos llega la notificación cuando nos mencionan, avisanos por <a href="https://ig.me/m/fogonmates" target="_blank" rel="noopener" class="ronda-disclaimer-link">DM de Instagram</a> o <a href="https://wa.me/5491150998752?text=Hola%20Fog%C3%B3n!%20Ya%20sub%C3%AD%20mi%20historia%20mencionando%20a%20%40fogonmates%20para%20sumarme%20a%20la%20Ronda%20Fogonera%20%F0%9F%A7%89" target="_blank" rel="noopener" class="ronda-disclaimer-link">WhatsApp</a> que subiste la historia para que te sumemos 🔥</p>
+  <div class="ronda-welcome" id="rondaWelcome">
+    <p class="ronda-welcome-title">¡Bienvenido al fogón! 🔥</p>
+    <p>Escaneaste el QR de tu caja. Gracias por elegir Fogón Mates.</p>
+  </div>
+
+  <div class="ronda-how">
+    <p class="ronda-how-intro">La <strong>Ronda Fogonera</strong> es la ronda de mate de todos los que eligieron Fogón Mates. Sumate y <strong>entrás a los sorteos de cupones y productos</strong>.</p>
+    <ol class="ronda-steps">
+      <li><span class="ronda-step-num">1</span><span class="ronda-step-txt">Sacale una foto a tu mate.</span></li>
+      <li><span class="ronda-step-num">2</span><span class="ronda-step-txt">Subila a tu historia de Instagram etiquetando a <strong>@fogonmates</strong>.</span></li>
+      <li><span class="ronda-step-num">3</span><span class="ronda-step-txt">Avisanos que la subiste (no siempre nos llega la notificación).</span></li>
+    </ol>
+    <a class="ronda-how-btn" href="https://wa.me/5491150998752?text=Hola%20Fog%C3%B3n!%20Sub%C3%AD%20mi%20historia%20mencionando%20a%20%40fogonmates%20para%20sumarme%20a%20la%20Ronda%20Fogonera%20%F0%9F%A7%89.%20Mi%20usuario%20es%3A%20" target="_blank" rel="noopener">Ya subí mi historia · Avisar por WhatsApp</a>
+    <p class="ronda-how-alt">o avisanos por <a href="https://ig.me/m/fogonmates" target="_blank" rel="noopener" class="ronda-disclaimer-link">DM de Instagram</a></p>
   </div>
 
   <div class="ronda-counter">🔥 <span id="rondaCounterNum">5</span> fogoneros ya se sumaron a la ronda</div>
@@ -3046,6 +3096,16 @@ function hideMapTooltip() {
 document.addEventListener('click', (e) => {
   if (!e.target.closest('.map-pin-group')) hideMapTooltip();
 });
+
+/* ── RONDA: bienvenida para quien entra desde el QR de la caja (?qr=caja) ── */
+(function () {
+  try {
+    if (new URLSearchParams(location.search).get('qr') === 'caja') {
+      var w = document.getElementById('rondaWelcome');
+      if (w) w.classList.add('show');
+    }
+  } catch (e) {}
+})();
 
 /* ── SORTEOS: TABS + CUENTA REGRESIVA EN VIVO ── */
 function switchSorteoTab(tab) {
