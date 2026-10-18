@@ -1602,7 +1602,11 @@ footer::before {
   border-left: 3px solid var(--ember); padding: 0.3rem 0.7rem;
 }
 .stock-msg.stock-out { color: var(--brown-light); background: rgba(92, 61, 46, 0.08); border-left-color: var(--brown-light); }
-.product-card.is-soldout .product-img { filter: grayscale(55%) sepia(10%) opacity(0.75); }
+.product-card.is-soldout .product-img,
+.product-card.is-soldout .product-img-hover-layer,
+.product-card.is-soldout .combo-img-split { filter: grayscale(55%) sepia(10%) opacity(0.75) !important; }
+.product-card.is-soldout .combo-img-split .split-img { filter: none !important; }
+.product-card.is-soldout .product-badge { display: none; }
 .product-card.is-soldout .product-price { color: var(--brown-light); }
 .soldout-badge {
   position: absolute; top: 1rem; left: 1rem; z-index: 3;
@@ -1936,7 +1940,7 @@ footer::before {
         </div>
         <div class="product-info">
           <h3 class="product-name">Camionero 4 patas</h3>
-          <p class="product-desc">Mate camionero de calabaza natural, forrado en cuero y con virola de acero inoxidable. Su diseño tradicional se distingue por su formato robusto y su base de 4 patas, que le aporta un apoyo firme y una presencia característica. Disponible en colores bordó, negro y suela, combina materiales nobles y una terminación cuidada, dando como resultado una pieza funcional y de estilo clásico. Las variaciones naturales de la calabaza hacen que cada pieza conserve su propia identidad.</p>
+          <p class="product-desc">Mate camionero de calabaza natural forrado en cuero, con virola de acero inoxidable y base de 4 patas para un apoyo firme. Disponible en bordó, negro y suela. Cada pieza es única por las variaciones naturales de la calabaza.</p>
           <div class="product-footer">
             <span class="product-price">$18.500</span>
             <button class="product-action" onclick="consultarProducto('Camionero 4 patas', '$18.500')">Consultar</button>
