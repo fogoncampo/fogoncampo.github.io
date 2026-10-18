@@ -1602,11 +1602,22 @@ footer::before {
   border-left: 3px solid var(--ember); padding: 0.3rem 0.7rem;
 }
 .stock-msg.stock-out { color: var(--brown-light); background: rgba(92, 61, 46, 0.08); border-left-color: var(--brown-light); }
-.product-card.is-soldout .product-img,
-.product-card.is-soldout .product-img-hover-layer,
-.product-card.is-soldout .combo-img-split { filter: grayscale(55%) sepia(10%) opacity(0.75) !important; }
-.product-card.is-soldout .combo-img-split .split-img { filter: none !important; }
+/* Agotado: en computadora la foto se ve normal y se pone gris solo al pasar el cursor por encima.
+   En celular (sin cursor) no hay "pasar el cursor", así que queda gris siempre, junto al cartel "Agotado". */
+.product-card.is-soldout .combo-img-split { transition: filter 0.4s ease; }
 .product-card.is-soldout .product-badge { display: none; }
+@media (hover: hover) {
+  .product-card.is-soldout:hover .product-img,
+  .product-card.is-soldout:hover .product-img-hover-layer,
+  .product-card.is-soldout:hover .combo-img-split { filter: grayscale(55%) sepia(10%) opacity(0.75) !important; }
+  .product-card.is-soldout:hover .combo-img-split .split-img { filter: none !important; }
+}
+@media (hover: none) {
+  .product-card.is-soldout .product-img,
+  .product-card.is-soldout .product-img-hover-layer,
+  .product-card.is-soldout .combo-img-split { filter: grayscale(55%) sepia(10%) opacity(0.75) !important; }
+  .product-card.is-soldout .combo-img-split .split-img { filter: none !important; }
+}
 .product-card.is-soldout .product-price { color: var(--brown-light); }
 .soldout-badge {
   position: absolute; top: 1rem; left: 1rem; z-index: 3;
@@ -2175,7 +2186,7 @@ footer::before {
       <line class="map-route" x1="148.7" y1="161.2" x2="141.7" y2="194.1"/>
 
       <!-- pin Buenos Aires -->
-      <g class="map-pin-group" tabindex="0" onmouseenter="showMapTooltip(event,'Buenos Aires',39)" onmouseleave="hideMapTooltip()" onclick="showMapTooltip(event,'Buenos Aires',39)" style="animation-delay:0.1s;">
+      <g class="map-pin-group" tabindex="0" onmouseenter="showMapTooltip(event,'Buenos Aires',46)" onmouseleave="hideMapTooltip()" onclick="showMapTooltip(event,'Buenos Aires',46)" style="animation-delay:0.1s;">
         <ellipse class="map-pin-shadow" cx="148.7" cy="163" rx="9" ry="3.2"/>
         <circle class="map-pin-pulse" cx="148.7" cy="161.2" r="6"/>
         <path class="map-pin-marker" d="M148.7,148 C143,148 139,152.4 139,158.3 C139,165.4 148.7,175 148.7,175 C148.7,175 158.4,165.4 158.4,158.3 C158.4,152.4 154.4,148 148.7,148 Z"/>
