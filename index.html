@@ -1605,21 +1605,31 @@ footer::before {
   border-left: 3px solid var(--ember); padding: 0.3rem 0.7rem;
 }
 .stock-msg.stock-out { color: var(--brown-light); background: rgba(92, 61, 46, 0.08); border-left-color: var(--brown-light); }
-/* Agotado: antes de pasar el cursor la tarjeta se ve normal (foto, precio y carteles).
-   Al pasar el cursor por encima pasa al look "agotado": foto en gris, precio y carteles apagados.
-   En celular (sin cursor) no existe "pasar el cursor", así que el look "agotado" queda siempre. */
-.product-card.is-soldout .combo-img-split { transition: filter 0.4s ease; }
+/* Agotado: SOLO aparece al pasar el cursor (compu) o al apoyar el dedo sobre el producto (celular).
+   Antes de eso la tarjeta se ve normal: foto a color, precio normal y sin ningún cartel de "agotado".
+   Funciona solo: cualquier producto o combo con stock 0 en el Sheet recibe la clase .is-soldout. */
+.product-card.is-soldout .product-img,
+.product-card.is-soldout .product-img-hover-layer,
+.product-card.is-soldout .combo-img-split { transition: filter 0.35s ease; }
 .product-card.is-soldout .product-badge { transition: opacity 0.3s ease; }
 .product-card.is-soldout .product-price,
-.product-card.is-soldout .stock-msg.stock-out,
-.product-card.is-soldout .soldout-badge,
-.product-card.is-soldout .add-to-cart-btn { transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease; }
-.product-card .stock-msg.stock-out { color: var(--ember-dark); background: rgba(196, 98, 45, 0.1); border-left-color: var(--ember); }
+.product-card.is-soldout .add-to-cart-btn { transition: color 0.3s ease, background-color 0.3s ease; }
 .soldout-badge {
   position: absolute; top: 1rem; left: 1rem; z-index: 3;
-  background: var(--ember); color: var(--cream);
+  background: var(--brown-dark); color: var(--cream);
   font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35rem 0.8rem;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
 }
+/* "Agotado" del cartel de stock: reserva su lugar (no se corre nada) pero se ve recién al pasar/tocar */
+.product-card .stock-msg.stock-out { visibility: hidden; opacity: 0; transition: opacity 0.3s ease; }
+/* "Avisame cuando vuelva": oculto hasta pasar/tocar */
+.product-card .notify-back-btn { opacity: 0; pointer-events: none; }
+.product-card.is-soldout:hover .notify-back-btn { pointer-events: auto; }
+.product-card.is-soldout.touch-armed .notify-back-btn { pointer-events: auto; }
+/* Botón del carrito: dice "Agregar" normal y cambia a "Agotado" al pasar/tocar, sin cambiar de ancho */
+.add-to-cart-btn.btn-soldout { display: inline-grid; }
+.add-to-cart-btn.btn-soldout > span { grid-area: 1 / 1; text-align: center; }
+.add-to-cart-btn.btn-soldout .lbl-out { visibility: hidden; }
 .add-to-cart-btn:disabled, .add-to-cart-btn:disabled:hover { cursor: not-allowed; }
 .gallery-detail-cart-btn:disabled, .gallery-detail-cart-btn:disabled:hover { background: var(--sand); color: var(--brown-light); cursor: not-allowed; }
 @media (hover: hover) {
@@ -1629,21 +1639,25 @@ footer::before {
   .product-card.is-soldout:hover .combo-img-split .split-img { filter: none !important; }
   .product-card.is-soldout:hover .product-badge { opacity: 0; }
   .product-card.is-soldout:hover .product-price { color: var(--brown-light); }
-  .product-card.is-soldout:hover .stock-msg.stock-out { color: var(--brown-light); background: rgba(92, 61, 46, 0.08); border-left-color: var(--brown-light); }
-  .product-card.is-soldout:hover .soldout-badge { background: var(--brown-dark); }
+  .product-card.is-soldout:hover .soldout-badge { opacity: 1; background: var(--brown-dark); }
+  .product-card.is-soldout:hover .stock-msg.stock-out { visibility: visible; opacity: 1; color: var(--brown-light); background: rgba(92, 61, 46, 0.08); border-left-color: var(--brown-light); }
+  .product-card.is-soldout:hover .notify-back-btn { opacity: 1; }
   .product-card.is-soldout:hover .add-to-cart-btn:disabled { background: var(--sand); color: var(--brown-light); }
+  .product-card.is-soldout:hover .add-to-cart-btn .lbl-normal { visibility: hidden; }
+  .product-card.is-soldout:hover .add-to-cart-btn .lbl-out { visibility: visible; }
 }
-@media (hover: none) {
-  .product-card.is-soldout .product-img,
-  .product-card.is-soldout .product-img-hover-layer,
-  .product-card.is-soldout .combo-img-split { filter: grayscale(55%) sepia(10%) opacity(0.75) !important; }
-  .product-card.is-soldout .combo-img-split .split-img { filter: none !important; }
-  .product-card.is-soldout .product-badge { opacity: 0; }
-  .product-card.is-soldout .product-price { color: var(--brown-light); }
-  .product-card.is-soldout .stock-msg.stock-out { color: var(--brown-light); background: rgba(92, 61, 46, 0.08); border-left-color: var(--brown-light); }
-  .product-card.is-soldout .soldout-badge { background: var(--brown-dark); }
-  .product-card.is-soldout .add-to-cart-btn:disabled { background: var(--sand); color: var(--brown-light); }
-}
+.product-card.is-soldout.touch-soldout .product-img,
+.product-card.is-soldout.touch-soldout .product-img-hover-layer,
+.product-card.is-soldout.touch-soldout .combo-img-split { filter: grayscale(55%) sepia(10%) opacity(0.75) !important; }
+.product-card.is-soldout.touch-soldout .combo-img-split .split-img { filter: none !important; }
+.product-card.is-soldout.touch-soldout .product-badge { opacity: 0; }
+.product-card.is-soldout.touch-soldout .product-price { color: var(--brown-light); }
+.product-card.is-soldout.touch-soldout .soldout-badge { opacity: 1; background: var(--brown-dark); }
+.product-card.is-soldout.touch-soldout .stock-msg.stock-out { visibility: visible; opacity: 1; color: var(--brown-light); background: rgba(92, 61, 46, 0.08); border-left-color: var(--brown-light); }
+.product-card.is-soldout.touch-soldout .notify-back-btn { opacity: 1; }
+.product-card.is-soldout.touch-soldout .add-to-cart-btn:disabled { background: var(--sand); color: var(--brown-light); }
+.product-card.is-soldout.touch-soldout .add-to-cart-btn .lbl-normal { visibility: hidden; }
+.product-card.is-soldout.touch-soldout .add-to-cart-btn .lbl-out { visibility: visible; }
 .notify-back-btn {
   font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
   color: var(--ember-dark); background: transparent; border: 1px solid var(--ember);
@@ -3512,7 +3526,8 @@ function applyStockToCards() {
     if (cartBtn) {
       if (!cartBtn.dataset.label) cartBtn.dataset.label = cartBtn.innerHTML;
       cartBtn.disabled = out;
-      cartBtn.innerHTML = out ? 'Agotado' : cartBtn.dataset.label;
+      cartBtn.innerHTML = out ? '<span class="lbl-normal">' + cartBtn.dataset.label + '</span><span class="lbl-out">Agotado</span>' : cartBtn.dataset.label;
+      cartBtn.classList.toggle('btn-soldout', out);
     }
     let badge = imgWrap && imgWrap.querySelector('.soldout-badge');
     if (out && imgWrap && !badge) { badge = document.createElement('span'); badge.className = 'soldout-badge'; badge.textContent = 'Agotado'; imgWrap.appendChild(badge); }
@@ -3965,6 +3980,31 @@ getResponse = function (input) {
   } catch (e) { console.warn('[Vizcachita] respuesta en vivo falló:', e.message); }
   return _getResponseOriginal(input);
 };
+</script>
+<script>
+// Celular: el look "agotado" aparece al apoyar el dedo sobre un producto sin stock y se va al soltar (o al tocar otra cosa).
+(function () {
+  var active = null, clearT = null, armT = null;
+  function clear() {
+    if (active) active.classList.remove('touch-soldout', 'touch-armed');
+    active = null; clearTimeout(clearT); clearTimeout(armT);
+  }
+  document.addEventListener('touchstart', function (e) {
+    var card = e.target.closest && e.target.closest('.product-card.is-soldout');
+    clearTimeout(clearT);
+    if (!card) { clear(); return; }
+    if (active === card) return;
+    clear();
+    active = card;
+    card.classList.add('touch-soldout');
+    // el botón "Avisame" recién se puede apretar un instante después, para que el primer toque no lo dispare
+    armT = setTimeout(function () { card.classList.add('touch-armed'); }, 350);
+  }, { passive: true });
+  function release() { clearTimeout(clearT); clearT = setTimeout(clear, 5000); }
+  document.addEventListener('touchend', release, { passive: true });
+  document.addEventListener('touchcancel', release, { passive: true });
+  window.addEventListener('scroll', function () { if (active) { clearTimeout(clearT); clearT = setTimeout(clear, 600); } }, { passive: true });
+})();
 </script>
 </body>
 </html>
