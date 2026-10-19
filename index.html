@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google-site-verification" content="pQddaT3V3izqndNAbdZxaZxinTZEQPHYO6njQ4-djlQ" />
-<title>Fogón Mates — Tradición que se comparte</title>
+<title>Fogón Mates — Mates de calabaza y algarrobo, combos y yerberas</title>
 <meta name="description" content="Mates y accesorios artesanales de calabaza y algarrobo, hechos a mano. Combos, bombillas y piezas únicas. Envíos a todo el país.">
 <script type="application/ld+json">
 {
@@ -32,7 +32,8 @@
       "url": "https://fogoncampo.github.io/",
       "logo": "https://fogoncampo.github.io/favicon-512x512.png",
       "sameAs": [
-        "https://www.instagram.com/fogonmates/"
+        "https://www.instagram.com/fogonmates/",
+        "https://www.instagram.com/fogoncampo/"
       ]
     }
   ]
@@ -46,13 +47,13 @@
 <meta property="og:site_name" content="Fogón Mates">
 <meta property="og:title" content="Fogón Mates — Tradición que se comparte">
 <meta property="og:description" content="Mates y accesorios artesanales de calabaza y algarrobo, hechos a mano. Combos, bombillas y piezas únicas. Envíos a todo el país.">
-<meta property="og:image" content="https://fogoncampo.github.io/Mate_Criollo_de_calabaza.jpeg">
+<meta property="og:image" content="https://fogoncampo.github.io/og-fogon.jpg">
 <meta property="og:locale" content="es_AR">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Fogón Mates — Tradición que se comparte">
 <meta name="twitter:description" content="Mates y accesorios artesanales de calabaza y algarrobo, hechos a mano. Combos, bombillas y piezas únicas. Envíos a todo el país.">
-<meta name="twitter:image" content="https://fogoncampo.github.io/Mate_Criollo_de_calabaza.jpeg">
+<meta name="twitter:image" content="https://fogoncampo.github.io/og-fogon.jpg">
 
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
@@ -921,6 +922,7 @@ footer::before {
   width: 50%; height: 100%; object-fit: cover; display: block;
   filter: sepia(10%) contrast(1.04); transition: filter 0.4s, transform 0.4s;
 }
+.combo-img-split.split-3 .split-img { width: 33.34%; }
 .combo-img-split .split-divider {
   width: 2px; background: rgba(184,150,78,0.5); flex-shrink: 0; z-index: 2;
   position: relative;
@@ -942,6 +944,8 @@ footer::before {
 
 
 /* ── BANNER ENVÍOS ── */
+.cart-envio-msg { font-size: .85rem; margin: .5rem 0 .9rem; color: var(--text-mid); line-height: 1.4; }
+.cart-envio-msg.ok { color: #2e7d32; font-weight: 700; }
 .envios-banner {
   background: var(--brown-dark); padding: 1rem 2rem;
   display: flex; align-items: center; justify-content: center;
@@ -1716,7 +1720,7 @@ footer::before {
   <div class="frases-track" id="frasesTrack">
     <span class="frase-item">🧉 Las mejores charlas empiezan con un mate.<span class="frase-sep">◆</span></span>
     <span class="frase-item">🤎 Tradición hecha diseño.<span class="frase-sep">◆</span></span>
-    <span class="frase-item">📦 Envíos a todo el país.<span class="frase-sep">◆</span></span>
+    <span class="frase-item">📦 Envío gratis a sucursal desde $50.000, a todo el país.<span class="frase-sep">◆</span></span>
     <span class="frase-item">🔥 Hecho a mano, sentido con el alma.<span class="frase-sep">◆</span></span>
     <span class="frase-item">🌳 Combo camionero + bombilla — $25.500.<span class="frase-sep">◆</span></span>
     <span class="frase-item">💬 Coordinamos tu compra por WhatsApp.<span class="frase-sep">◆</span></span>
@@ -1728,7 +1732,7 @@ footer::before {
     <span class="frase-item">🤎 Fogón Mates — tradición que se comparte.<span class="frase-sep">◆</span></span>
     <span class="frase-item">🧉 Las mejores charlas empiezan con un mate.<span class="frase-sep">◆</span></span>
     <span class="frase-item">🤎 Tradición hecha diseño.<span class="frase-sep">◆</span></span>
-    <span class="frase-item">📦 Envíos a todo el país.<span class="frase-sep">◆</span></span>
+    <span class="frase-item">📦 Envío gratis a sucursal desde $50.000, a todo el país.<span class="frase-sep">◆</span></span>
     <span class="frase-item">🔥 Hecho a mano, sentido con el alma.<span class="frase-sep">◆</span></span>
     <span class="frase-item">🌳 Combo camionero + bombilla — $25.500.<span class="frase-sep">◆</span></span>
     <span class="frase-item">💬 Coordinamos tu compra por WhatsApp.<span class="frase-sep">◆</span></span>
@@ -1787,6 +1791,15 @@ footer::before {
 </div>
 
 
+<!-- BANNER ENVÍOS (arriba) -->
+<div class="envios-banner">
+  <span class="envios-item">📦 Envío gratis a sucursal de Correo Argentino desde $50.000</span>
+  <span class="envios-sep">·</span>
+  <span class="envios-item">🚚 A todo el país</span>
+  <span class="envios-sep">·</span>
+  <span class="envios-item">📬 Coordinamos por WhatsApp</span>
+</div>
+
 <!-- PRODUCTOS -->
 <section id="productos">
   <div class="section-header">
@@ -1814,6 +1827,117 @@ footer::before {
       <input type="range" id="priceRange" min="6500" max="50000" step="500" value="50000">
     </div>
     <div class="products-grid">
+
+      <!-- COMBO CRIOLLO + YERBERA -->
+      <div class="product-card" data-cat="combos" data-price="31999">
+        <div class="product-img-wrap has-gallery" data-gallery-key="combo_criollo_yerbera" onclick="openProductDetail('combo_criollo_yerbera')">
+          <span class="product-badge">Oferta</span>
+          <div class="combo-img-split">
+            <img loading="lazy" decoding="async" class="split-img" src="Mate_Criollo_de_calabaza.jpeg" alt="Mate criollo" onerror="this.style.background='#D4C4A0'">
+            <div class="split-divider"></div>
+            <img loading="lazy" decoding="async" class="split-img" src="yerbera.jpeg" alt="Yerbera Fogón" onerror="this.style.background='#D4C4A0'">
+          </div>
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">Combo criollo + yerbera</h3>
+          <p class="product-desc">Mate criollo de calabaza con base de cuero y yerbera Fogón de gamuza, con precio rebajado.</p>
+          <div class="product-footer">
+            <div><span class="product-price-old">$33.999</span><span class="product-price">$31.999</span></div>
+            <button class="product-action" onclick="consultarProducto('Combo criollo + yerbera', '$31.999')">Consultar</button>
+            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart('combo_criollo_yerbera','Combo criollo + yerbera',31999,'Mate_Criollo_de_calabaza.jpeg',this)">🛒 Agregar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMBO CAMIONERO 4 PATAS + YERBERA -->
+      <div class="product-card" data-cat="combos" data-price="32499">
+        <div class="product-img-wrap has-gallery" data-gallery-key="combo_4_patas_yerbera" onclick="openProductDetail('combo_4_patas_yerbera')">
+          <span class="product-badge">Oferta</span>
+          <div class="combo-img-split">
+            <img loading="lazy" decoding="async" class="split-img" src="mate-camionero-4-patas-1.jpeg" alt="Mate camionero 4 patas" onerror="this.style.background='#D4C4A0'">
+            <div class="split-divider"></div>
+            <img loading="lazy" decoding="async" class="split-img" src="yerbera.jpeg" alt="Yerbera Fogón" onerror="this.style.background='#D4C4A0'">
+          </div>
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">Combo camionero 4 patas + yerbera</h3>
+          <p class="product-desc">Camionero 4 patas forrado en cuero, con virola de acero inoxidable, y yerbera Fogón de gamuza, con precio rebajado.</p>
+          <div class="product-footer">
+            <div><span class="product-price-old">$34.500</span><span class="product-price">$32.499</span></div>
+            <button class="product-action" onclick="consultarProducto('Combo camionero 4 patas + yerbera', '$32.499')">Consultar</button>
+            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart('combo_4_patas_yerbera','Combo camionero 4 patas + yerbera',32499,'mate-camionero-4-patas-1.jpeg',this)">🛒 Agregar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- RONDA LISTA CRIOLLO -->
+      <div class="product-card" data-cat="combos" data-price="37999">
+        <div class="product-img-wrap has-gallery" data-gallery-key="ronda_lista_criollo" onclick="openProductDetail('ronda_lista_criollo')">
+          <span class="product-badge">Pack</span>
+          <div class="combo-img-split split-3">
+            <img loading="lazy" decoding="async" class="split-img" src="Mate_Criollo_de_calabaza.jpeg" alt="Mate criollo" onerror="this.style.background='#D4C4A0'">
+            <div class="split-divider"></div>
+            <img loading="lazy" decoding="async" class="split-img" src="Bombilla_pico_de_loro__inoxidable_.jpeg" alt="Bombilla" onerror="this.style.background='#D4C4A0'">
+            <div class="split-divider"></div>
+            <img loading="lazy" decoding="async" class="split-img" src="yerbera.jpeg" alt="Yerbera Fogón" onerror="this.style.background='#D4C4A0'">
+          </div>
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">Ronda Lista criollo</h3>
+          <p class="product-desc">Todo para arrancar la ronda: mate criollo de calabaza con base de cuero, bombilla pico de loro de acero inoxidable y yerbera Fogón de gamuza.</p>
+          <div class="product-footer">
+            <div><span class="product-price-old">$40.499</span><span class="product-price">$37.999</span></div>
+            <button class="product-action" onclick="consultarProducto('Ronda Lista criollo', '$37.999')">Consultar</button>
+            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart('ronda_lista_criollo','Ronda Lista criollo',37999,'Mate_Criollo_de_calabaza.jpeg',this)">🛒 Agregar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- RONDA LISTA CAMIONERO 4 PATAS -->
+      <div class="product-card" data-cat="combos" data-price="37999">
+        <div class="product-img-wrap has-gallery" data-gallery-key="ronda_lista_4_patas" onclick="openProductDetail('ronda_lista_4_patas')">
+          <span class="product-badge">Pack</span>
+          <div class="combo-img-split split-3">
+            <img loading="lazy" decoding="async" class="split-img" src="mate-camionero-4-patas-1.jpeg" alt="Mate camionero 4 patas" onerror="this.style.background='#D4C4A0'">
+            <div class="split-divider"></div>
+            <img loading="lazy" decoding="async" class="split-img" src="Bombilla_pico_de_loro__inoxidable_.jpeg" alt="Bombilla" onerror="this.style.background='#D4C4A0'">
+            <div class="split-divider"></div>
+            <img loading="lazy" decoding="async" class="split-img" src="yerbera.jpeg" alt="Yerbera Fogón" onerror="this.style.background='#D4C4A0'">
+          </div>
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">Ronda Lista camionero 4 patas</h3>
+          <p class="product-desc">El equipo completo para el auto, la oficina o el campo: camionero 4 patas forrado en cuero, bombilla pico de loro y yerbera Fogón de gamuza.</p>
+          <div class="product-footer">
+            <div><span class="product-price-old">$41.000</span><span class="product-price">$37.999</span></div>
+            <button class="product-action" onclick="consultarProducto('Ronda Lista camionero 4 patas', '$37.999')">Consultar</button>
+            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart('ronda_lista_4_patas','Ronda Lista camionero 4 patas',37999,'mate-camionero-4-patas-1.jpeg',this)">🛒 Agregar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- RONDA LISTA CAMIONERO DE ALGARROBO -->
+      <div class="product-card" data-cat="combos" data-price="41499">
+        <div class="product-img-wrap has-gallery" data-gallery-key="ronda_lista_camionero" onclick="openProductDetail('ronda_lista_camionero')">
+          <span class="product-badge">Pack</span>
+          <div class="combo-img-split split-3">
+            <img loading="lazy" decoding="async" class="split-img" src="mate-camionero-algarrobo-1.jpeg" alt="Mate camionero de algarrobo" onerror="this.style.background='#D4C4A0'">
+            <div class="split-divider"></div>
+            <img loading="lazy" decoding="async" class="split-img" src="Bombilla_pico_de_loro__inoxidable_.jpeg" alt="Bombilla" onerror="this.style.background='#D4C4A0'">
+            <div class="split-divider"></div>
+            <img loading="lazy" decoding="async" class="split-img" src="yerbera.jpeg" alt="Yerbera Fogón" onerror="this.style.background='#D4C4A0'">
+          </div>
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">Ronda Lista camionero de algarrobo</h3>
+          <p class="product-desc">Camionero clásico de algarrobo con virola de acero inoxidable, bombilla pico de loro y yerbera Fogón de gamuza.</p>
+          <div class="product-footer">
+            <div><span class="product-price-old">$44.000</span><span class="product-price">$41.499</span></div>
+            <button class="product-action" onclick="consultarProducto('Ronda Lista camionero de algarrobo', '$41.499')">Consultar</button>
+            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart('ronda_lista_camionero','Ronda Lista camionero de algarrobo',41499,'mate-camionero-algarrobo-1.jpeg',this)">🛒 Agregar</button>
+          </div>
+        </div>
+      </div>
 
       <!-- COMBO CRIOLLO -->
       <div class="product-card" data-cat="combos" data-price="21999">
@@ -2278,9 +2402,9 @@ footer::before {
 
 <!-- BANNER ENVÍOS -->
 <div class="envios-banner">
-  <span class="envios-item">📦 Envíos a todo el país</span>
+  <span class="envios-item">📦 Envío gratis a sucursal de Correo Argentino desde $50.000</span>
   <span class="envios-sep">·</span>
-  <span class="envios-item">🚚 Despachamos por correo</span>
+  <span class="envios-item">🚚 A todo el país</span>
   <span class="envios-sep">·</span>
   <span class="envios-item">📬 Coordinamos por WhatsApp</span>
 </div>
@@ -2344,7 +2468,7 @@ footer::before {
         <button onclick="applyDiscountCode()">Aplicar</button>
       </div>
       <p class="cart-discount-msg" id="cartDiscountMsg"></p>
-      <p class="cart-discount-note">Los cupones son de un solo uso y válidos por 30 días desde que se entregan. La validez se confirma manualmente al recibir tu pedido.</p>
+      <p class="cart-discount-note">Los cupones son de un solo uso y válidos por 30 días desde que se entregan. No se aplican a combos ni packs. La validez se confirma manualmente al recibir tu pedido.</p>
       <div class="cart-total-row" id="cartTotalOriginalRow" style="display:none;">
         <span>Subtotal</span><span id="cartTotalOriginal"></span>
       </div>
@@ -2354,6 +2478,7 @@ footer::before {
       <div class="cart-total-row final">
         <span>Total</span><span id="cartTotalFinal"></span>
       </div>
+      <p class="cart-envio-msg" id="cartEnvioMsg"></p>
       <button class="cart-checkout-btn" onclick="checkoutCart()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
         Finalizar pedido por WhatsApp
@@ -2429,7 +2554,7 @@ footer::before {
 
   <!-- PILL VIZCACHITA -->
   <div class="chat-pill" id="chatPill" onclick="chatToggle.click(); hidePill()">
-    <img class="chat-pill-avatar" src="Vizcahita.png" alt="Vizcachita" onerror="this.style.display='none'">
+    <img class="chat-pill-avatar" loading="lazy" src="Vizcahita.png" alt="Vizcachita" onerror="this.style.display='none'">
     <span class="chat-pill-text">¡Hablá con Vizcachita! 🤎</span>
   </div>
   <div class="chat-window" id="chatWindow">
@@ -2517,11 +2642,17 @@ if (priceRange) {
 /* ── PRODUCT CONSULT ── */
 function consultarProducto(nombre, precio) {
   const msg = encodeURIComponent(`Hola Fogón! Quiero consultar por el producto "${nombre}" (${precio}) que vi en la web.`);
+  window.fogonTrack('wa-consultar-producto');
   window.open(`https://wa.me/5491150998752?text=${msg}`, '_blank');
 }
 
 /* ── GALERÍA DE PRODUCTO ── */
 const PRODUCT_GALLERIES = {
+  ronda_lista_criollo: ['mate-criollo-calabaza-cuero-1.jpeg', 'mate-criollo-calabaza-cuero-2.jpeg', 'bombilla-pico-de-loro-acero-inoxidable.jpeg', 'yerbera-fogon-gamuza-1.jpeg', 'yerbera-fogon-gamuza-2.jpeg'],
+  ronda_lista_4_patas: ['mate-camionero-4-patas-1.jpeg', 'mate-camionero-4-patas-2.jpeg', 'bombilla-pico-de-loro-acero-inoxidable.jpeg', 'yerbera-fogon-gamuza-1.jpeg', 'yerbera-fogon-gamuza-2.jpeg'],
+  ronda_lista_camionero: ['mate-camionero-algarrobo-1.jpeg', 'mate-camionero-algarrobo-2.jpeg', 'bombilla-pico-de-loro-acero-inoxidable.jpeg', 'yerbera-fogon-gamuza-1.jpeg', 'yerbera-fogon-gamuza-2.jpeg'],
+  combo_criollo_yerbera: ['mate-criollo-calabaza-cuero-1.jpeg', 'mate-criollo-calabaza-cuero-2.jpeg', 'yerbera-fogon-gamuza-1.jpeg', 'yerbera-fogon-gamuza-2.jpeg'],
+  combo_4_patas_yerbera: ['mate-camionero-4-patas-1.jpeg', 'mate-camionero-4-patas-2.jpeg', 'yerbera-fogon-gamuza-1.jpeg', 'yerbera-fogon-gamuza-2.jpeg'],
   yerbera: ['yerbera-fogon-gamuza-1.jpeg', 'yerbera-fogon-gamuza-2.jpeg', 'yerbera-fogon-gamuza-3.jpeg', 'yerbera-fogon-gamuza-4.jpeg'],
   vaquita_ranchero: ['mate-vaquita-algarrobo-pintado-1.jpeg', 'mate-vaquita-algarrobo-pintado-2.jpeg'],
   bombilla: ['bombilla-pico-de-loro-acero-inoxidable.jpeg'],
@@ -2902,13 +3033,24 @@ function giftSetStyle(style) {
 }
 
 /* ── CARRITO DE COMPRAS ── */
+// Los códigos NO van escritos acá: solo su huella SHA-256. Para un código nuevo,
+// generá la huella con privado/generar-huella-cupon.html (fuera del repo) y pegala abajo.
 const COUPONS = {
-  FUEGO30:  { pct: 30, min: 35000 },
-  BRASA25:  { pct: 25, min: 20000 },
-  CHISPA20: { pct: 20, min: 0 }
+  'd3b9754527682a3cc1535ed6514a4f054743af147b720dea32c1ef351ec9e362': { pct: 30, min: 35000 },
+  '677ec43bbd987f2a418732ea35a532568bb4c42d4f1b472a653bd6978c73e96f': { pct: 25, min: 20000 },
+  '18d96e4ec955d69368c2ad119c4e93f1379c99f1a61edcda21386c99f0e92411': { pct: 20, min: 0 }
 };
+async function couponHash(code) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(code));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
 let CART = [];
 let appliedCoupon = null;
+// Productos con precio ya rebajado: el cupón no se aplica sobre ellos (combos y pack Ronda Lista).
+function sinCupon(key) { return /^(combo_|ronda_lista)/.test(key || ''); }
+function couponBase() {
+  return CART.filter(i => !sinCupon(i.key)).reduce((s, i) => s + i.price * i.qty, 0);
+}
 try {
   const saved = localStorage.getItem('fogon_cart');
   if (saved) CART = JSON.parse(saved);
@@ -3029,23 +3171,37 @@ function recalcTotals() {
   const originalRow = document.getElementById('cartTotalOriginalRow');
   const discountRow = document.getElementById('cartTotalDiscountRow');
   let final = subtotal;
-  if (appliedCoupon && subtotal >= appliedCoupon.min) {
-    const discountAmount = subtotal * appliedCoupon.pct / 100;
+  const base = couponBase();
+  if (appliedCoupon && base > 0 && base >= appliedCoupon.min) {
+    const discountAmount = base * appliedCoupon.pct / 100;
     final = subtotal - discountAmount;
     originalRow.style.display = ''; discountRow.style.display = '';
     document.getElementById('cartTotalOriginal').textContent = fmtMoney(subtotal);
     document.getElementById('cartTotalDiscount').textContent = '-' + fmtMoney(discountAmount) + ` (${appliedCoupon.code} -${appliedCoupon.pct}%)`;
   } else {
     originalRow.style.display = 'none'; discountRow.style.display = 'none';
+    if (appliedCoupon) { const m = document.getElementById('cartDiscountMsg'); m.textContent = ''; m.className = 'cart-discount-msg'; }
     appliedCoupon = null;
   }
   document.getElementById('cartTotalFinal').textContent = fmtMoney(final);
+  const envioEl = document.getElementById('cartEnvioMsg');
+  if (envioEl) {
+    const e = envioInfo(final);
+    envioEl.textContent = e.msg; envioEl.className = 'cart-envio-msg' + (e.gratis ? ' ok' : '');
+  }
 }
-function applyDiscountCode() {
+// Envío gratis a sucursal desde $50.000 pagados (después de descuentos). No se combina con los cupones de la Ronda.
+const ENVIO_GRATIS_MIN = 50000;
+function envioInfo(final) {
+  if (appliedCoupon) return { gratis: false, msg: '📦 Con cupón de la Ronda el envío se paga aparte: elegís cupón o envío gratis. Te lo calculamos por WhatsApp.' };
+  if (final >= ENVIO_GRATIS_MIN) return { gratis: true, msg: '🎉 Tenés envío gratis a sucursal de Correo Argentino. A domicilio pagás solo la diferencia.' };
+  return { gratis: false, msg: `📦 Te faltan ${fmtMoney(ENVIO_GRATIS_MIN - final)} para el envío gratis a sucursal. Si no, te calculamos el envío por WhatsApp.` };
+}
+async function applyDiscountCode() {
   const input = document.getElementById('cartDiscountInput');
   const msgEl = document.getElementById('cartDiscountMsg');
   const code = input.value.trim().toUpperCase();
-  const coupon = COUPONS[code];
+  const coupon = code ? COUPONS[await couponHash(code)] : null;
   const subtotal = cartSubtotal();
   if (!code) { msgEl.textContent = ''; msgEl.className = 'cart-discount-msg'; return; }
   if (!coupon) {
@@ -3055,15 +3211,23 @@ function applyDiscountCode() {
     recalcTotals();
     return;
   }
-  if (subtotal < coupon.min) {
+  const base = couponBase();
+  if (base === 0) {
     appliedCoupon = null;
-    msgEl.textContent = `Este código requiere una compra mínima de ${fmtMoney(coupon.min)}. Te faltan ${fmtMoney(coupon.min - subtotal)}.`;
+    msgEl.textContent = 'Los cupones no se aplican a combos ni packs, porque ya tienen precio rebajado.';
+    msgEl.className = 'cart-discount-msg error';
+    recalcTotals();
+    return;
+  }
+  if (base < coupon.min) {
+    appliedCoupon = null;
+    msgEl.textContent = `Este código requiere una compra mínima de ${fmtMoney(coupon.min)} en productos sin descuento (no cuentan combos ni packs). Te faltan ${fmtMoney(coupon.min - base)}.`;
     msgEl.className = 'cart-discount-msg error';
     recalcTotals();
     return;
   }
   appliedCoupon = { code, pct: coupon.pct, min: coupon.min };
-  msgEl.textContent = `¡Código aplicado! ${coupon.pct}% de descuento.`;
+  msgEl.textContent = `¡Código aplicado! ${coupon.pct}% de descuento` + (base < subtotal ? ' (no se aplica a combos ni packs).' : '.');
   msgEl.className = 'cart-discount-msg ok';
   recalcTotals();
 }
@@ -3079,13 +3243,17 @@ function checkoutCart() {
   const subtotal = cartSubtotal();
   let lines = CART.map(i => `• ${i.name} x${i.qty} — ${fmtMoney(i.price * i.qty)}`).join('\n');
   let msg = `Hola Fogón! 🧉 Quiero hacer este pedido:\n\n${lines}\n\n`;
-  if (appliedCoupon && subtotal >= appliedCoupon.min) {
-    const discountAmount = subtotal * appliedCoupon.pct / 100;
+  const base = couponBase();
+  if (appliedCoupon && base > 0 && base >= appliedCoupon.min) {
+    const discountAmount = base * appliedCoupon.pct / 100;
     const final = subtotal - discountAmount;
-    msg += `Subtotal: ${fmtMoney(subtotal)}\nCupón ${appliedCoupon.code} (-${appliedCoupon.pct}%): -${fmtMoney(discountAmount)}\nTotal final: ${fmtMoney(final)}`;
+    msg += `Subtotal: ${fmtMoney(subtotal)}\nCupón ${appliedCoupon.code} (-${appliedCoupon.pct}% sobre ${fmtMoney(base)}${base < subtotal ? ', sin combos ni packs' : ''}): -${fmtMoney(discountAmount)}\nTotal final: ${fmtMoney(final)}`;
   } else {
     msg += `Total: ${fmtMoney(subtotal)}`;
   }
+  const finalPedido = (appliedCoupon && base > 0 && base >= appliedCoupon.min) ? subtotal - base * appliedCoupon.pct / 100 : subtotal;
+  msg += envioInfo(finalPedido).gratis ? '\nEnvío: gratis a sucursal (pedido desde $50.000)' : '\nEnvío: a calcular';
+  window.fogonTrack('wa-pedido-carrito');
   window.open(`https://wa.me/5491150998752?text=${encodeURIComponent(msg)}`, '_blank');
 }
 updateCartFabBadge();
@@ -3247,7 +3415,7 @@ const KB = [
   },
   { keys: ['instagram','insta','ig','redes','fotos','novedades'], resp: ['¡En nuestro Instagram vas a encontrar todo! 📸 Fotos, videos del proceso artesanal y novedades. Seguinos en @fogonmates 🔥'], link: { text: '📸 Ver @fogonmates', url: IG_LINK, ig: true } },
   { keys: ['whatsapp','wsp','contacto','contactar','telefono','hablar'], resp: ['¡Podés escribirnos al +54 9 11 5099-8752! 📲 Te atendemos para confirmar stock, envío y cerrar la compra.'], link: { text: '💬 Abrir WhatsApp', url: WA_LINK } },
-  { keys: ['envio','envíos','mandan','llega','correo','todo el pais'], resp: ['¡Sí, enviamos a todo el país! 📦 Despachamos por correo. Para el costo, escribinos con tu código postal y te calculamos al toque.'], link: { text: '💬 Consultar envío', url: WA_LINK } },
+  { keys: ['envio','envíos','mandan','llega','correo','todo el pais'], resp: ['¡Sí, enviamos a todo el país! 📦 Desde $50.000 el envío a sucursal de Correo Argentino es gratis (no se combina con cupones de la Ronda). Si no, escribinos con tu código postal y te calculamos al toque.'], link: { text: '💬 Consultar envío', url: WA_LINK } },
   { keys: ['pago','pagar','transferencia','efectivo','como pago'], resp: ['Aceptamos transferencia bancaria y efectivo 💸 Se coordina por WhatsApp al confirmar el pedido. ¡Simple y directo!'], link: { text: '💬 Coordinar compra', url: WA_LINK } },
   { keys: ['regalo','regalar','cumpleaños','dia del padre','dia de la madre'], resp: ['¡Un mate artesanal es el regalo perfecto! 🎁 Los combos son los más elegidos: Combo criollo + bombilla ($21.999) o Combo camionero + bombilla ($25.500). Si tenés un presupuesto en mente, probá el buscador de regalos 🎁 de la web: te muestra solo lo que entra en tu presupuesto y tiene stock. ¿Para quién es?'], link: { text: '💬 Armar regalo', url: WA_LINK } },
   { keys: ['como compro','quiero comprar','quiero uno','proceso de compra'], resp: ['¡Muy fácil! 1️⃣ Elegís el mate 2️⃣ Nos escribís por WhatsApp 3️⃣ Te calculamos el envío 4️⃣ Coordinamos el pago 5️⃣ ¡Lo despachamos! 📦'], link: { text: '💬 Empezar por WhatsApp', url: WA_LINK } },
@@ -3387,6 +3555,11 @@ const STOCK_REFRESH_MS = 2 * 60 * 1000; // vuelve a consultar cada 2 minutos
 // Producto de la web → nombre(s) en la columna "Producto" del Sheet.
 // Si un producto usa varias filas (combos), el stock es el menor de ellas.
 const STOCK_MAP = {
+  ronda_lista_criollo: ['CRIOLLOS', 'BOMBILLAS', 'YERBERAS'],
+  ronda_lista_4_patas: ['CAMIONERO 4 PATAS', 'BOMBILLAS', 'YERBERAS'],
+  ronda_lista_camionero: ['CAMIONEROS', 'BOMBILLAS', 'YERBERAS'],
+  combo_criollo_yerbera: ['CRIOLLOS', 'YERBERAS'],
+  combo_4_patas_yerbera: ['CAMIONERO 4 PATAS', 'YERBERAS'],
   combo_criollo:           ['CRIOLLOS', 'BOMBILLAS'],
   combo_camionero:         ['CAMIONEROS', 'BOMBILLAS'],
   combo_camionero_4_patas: ['CAMIONERO 4 PATAS', 'BOMBILLAS'],
@@ -3646,6 +3819,11 @@ document.addEventListener('visibilitychange', () => { if (!document.hidden) load
 const PRICE_CSV_URL = STOCK_CSV_URL; // misma pestaña "WEB": columna Precio
 // Producto de la web → fila del Sheet de precios
 const PRICE_MAP = {
+  ronda_lista_criollo: 'RONDA LISTA CRIOLLO',
+  ronda_lista_4_patas: 'RONDA LISTA 4 PATAS',
+  ronda_lista_camionero: 'RONDA LISTA CAMIONERO',
+  combo_criollo_yerbera: 'CRIOLLO CON YERBERA',
+  combo_4_patas_yerbera: '4 PATAS CON YERBERA',
   combo_criollo: 'CRIOLLOS CON BOMBILLA',
   combo_camionero: 'CAMIONERO CON BOMBILLA',
   combo_camionero_4_patas: 'CAMIONERO 4 PATAS CON BOMBILLA'
@@ -3653,6 +3831,11 @@ const PRICE_MAP = {
 Object.entries(STOCK_MAP).forEach(([key, names]) => { if (!PRICE_MAP[key] && names.length === 1) PRICE_MAP[key] = names[0]; });
 // Combos: para el precio "antes" se suman sus partes
 const COMBO_PARTS = {
+  ronda_lista_criollo: ['CRIOLLOS', 'BOMBILLAS', 'YERBERAS'],
+  ronda_lista_4_patas: ['CAMIONERO 4 PATAS', 'BOMBILLAS', 'YERBERAS'],
+  ronda_lista_camionero: ['CAMIONEROS', 'BOMBILLAS', 'YERBERAS'],
+  combo_criollo_yerbera: ['CRIOLLOS', 'YERBERAS'],
+  combo_4_patas_yerbera: ['CAMIONERO 4 PATAS', 'YERBERAS'],
   combo_criollo: ['CRIOLLOS', 'BOMBILLAS'],
   combo_camionero: ['CAMIONEROS', 'BOMBILLAS'],
   combo_camionero_4_patas: ['CAMIONERO 4 PATAS', 'BOMBILLAS']
@@ -4006,5 +4189,16 @@ getResponse = function (input) {
   window.addEventListener('scroll', function () { if (active) { clearTimeout(clearT); clearT = setTimeout(clear, 600); } }, { passive: true });
 })();
 </script>
+<script>
+// MEDICIÓN (propuesta): cuando exista la cuenta de GoatCounter, reemplazar TU-CODIGO y descomentar el script de abajo.
+window.fogonTrack = function (evento) {
+  try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: 'evento/' + evento, title: evento, event: true }); } catch (e) {}
+};
+document.addEventListener('click', function (e) {
+  const a = e.target.closest && e.target.closest('a[href*="wa.me"]');
+  if (a && !a.getAttribute('onclick')) window.fogonTrack('wa-' + (a.className.split(' ')[0] || 'link'));
+}, true);
+</script>
+<!-- <script data-goatcounter="https://TU-CODIGO.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script> -->
 </body>
 </html>
