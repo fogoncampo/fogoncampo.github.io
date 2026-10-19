@@ -519,11 +519,11 @@ nav.scrolled { padding: 0.8rem 3rem; }
   flex-wrap: wrap; gap: 0.6rem;
 }
 .product-price {
-  font-family: 'Playfair Display', serif; font-size: 1.3rem;
+  font-family: 'Playfair Display', serif; font-size: 1.45rem;
   font-weight: 900; color: var(--ember);
 }
 .product-price-old {
-  font-size: 0.8rem; color: var(--brown-light);
+  font-size: 1.05rem; color: var(--brown-light);
   text-decoration: line-through; margin-right: 0.4rem;
 }
 .product-action {
@@ -2217,6 +2217,27 @@ footer::before {
         </div>
       </div>
       <h3 class="grid-group-title" data-group="accesorios">Accesorios</h3>
+      <!-- COMBO CAMIONERO DE ALGARROBO + YERBERA -->
+      <div class="product-card" data-cat="combos" data-combo="yerbera" data-price="35499">
+        <div class="product-img-wrap has-gallery" data-gallery-key="combo_camionero_yerbera" onclick="openProductDetail('combo_camionero_yerbera')">
+          <span class="product-badge">Oferta</span>
+          <div class="combo-img-split">
+            <img loading="lazy" decoding="async" class="split-img" src="mate-camionero-algarrobo-1.jpeg" alt="Mate camionero de algarrobo" onerror="this.style.background='#D4C4A0'">
+            <div class="split-divider"></div>
+            <img loading="lazy" decoding="async" class="split-img" src="yerbera.jpeg" alt="Yerbera Fogón" onerror="this.style.background='#D4C4A0'">
+          </div>
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">Combo camionero de algarrobo + yerbera</h3>
+          <p class="product-desc">Camionero de algarrobo y yerbera de gamuza.</p>
+          <div class="product-footer">
+            <div><span class="product-price-old">$37.500</span><span class="product-price">$35.499</span></div>
+            <button class="product-action" onclick="consultarProducto('Combo camionero de algarrobo + yerbera', '$35.499')">Consultar</button>
+            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart('combo_camionero_yerbera','Combo camionero de algarrobo + yerbera',35499,'mate-camionero-algarrobo-1.jpeg',this)">🛒 Agregar</button>
+          </div>
+        </div>
+      </div>
+      <h3 class="grid-group-title" data-group="accesorios">Accesorios</h3>
       <!-- YERBERA -->
       <div class="product-card" data-cat="accesorios" data-price="16000">
         <div class="product-img-wrap has-gallery" data-gallery-key="yerbera" onclick="openProductDetail('yerbera')">
@@ -2751,6 +2772,7 @@ const PRODUCT_GALLERIES = {
   ronda_lista_camionero: ['mate-camionero-algarrobo-1.jpeg', 'mate-camionero-algarrobo-2.jpeg', 'bombilla-pico-de-loro-acero-inoxidable.jpeg', 'yerbera-fogon-gamuza-1.jpeg', 'yerbera-fogon-gamuza-2.jpeg'],
   combo_criollo_yerbera: ['mate-criollo-calabaza-cuero-1.jpeg', 'mate-criollo-calabaza-cuero-2.jpeg', 'yerbera-fogon-gamuza-1.jpeg', 'yerbera-fogon-gamuza-2.jpeg'],
   combo_4_patas_yerbera: ['mate-camionero-4-patas-1.jpeg', 'mate-camionero-4-patas-2.jpeg', 'yerbera-fogon-gamuza-1.jpeg', 'yerbera-fogon-gamuza-2.jpeg'],
+  combo_camionero_yerbera: ['mate-camionero-algarrobo-1.jpeg', 'mate-camionero-algarrobo-2.jpeg', 'yerbera-fogon-gamuza-1.jpeg', 'yerbera-fogon-gamuza-2.jpeg'],
   yerbera: ['yerbera-fogon-gamuza-1.jpeg', 'yerbera-fogon-gamuza-2.jpeg', 'yerbera-fogon-gamuza-3.jpeg', 'yerbera-fogon-gamuza-4.jpeg'],
   vaquita_ranchero: ['mate-vaquita-algarrobo-pintado-1.jpeg', 'mate-vaquita-algarrobo-pintado-2.jpeg'],
   bombilla: ['bombilla-pico-de-loro-acero-inoxidable.jpeg'],
@@ -3664,6 +3686,7 @@ const STOCK_MAP = {
   ronda_lista_camionero: ['CAMIONEROS', 'BOMBILLAS', 'YERBERAS'],
   combo_criollo_yerbera: ['CRIOLLOS', 'YERBERAS'],
   combo_4_patas_yerbera: ['CAMIONERO 4 PATAS', 'YERBERAS'],
+  combo_camionero_yerbera: ['CAMIONEROS', 'YERBERAS'],
   combo_criollo:           ['CRIOLLOS', 'BOMBILLAS'],
   combo_camionero:         ['CAMIONEROS', 'BOMBILLAS'],
   combo_camionero_4_patas: ['CAMIONERO 4 PATAS', 'BOMBILLAS'],
@@ -3928,6 +3951,7 @@ const PRICE_MAP = {
   ronda_lista_camionero: 'RONDA LISTA CAMIONERO',
   combo_criollo_yerbera: 'CRIOLLO CON YERBERA',
   combo_4_patas_yerbera: '4 PATAS CON YERBERA',
+  combo_camionero_yerbera: 'CAMIONERO CON YERBERA',
   combo_criollo: 'CRIOLLOS CON BOMBILLA',
   combo_camionero: 'CAMIONERO CON BOMBILLA',
   combo_camionero_4_patas: 'CAMIONERO 4 PATAS CON BOMBILLA'
@@ -3940,6 +3964,7 @@ const COMBO_PARTS = {
   ronda_lista_camionero: ['CAMIONEROS', 'BOMBILLAS', 'YERBERAS'],
   combo_criollo_yerbera: ['CRIOLLOS', 'YERBERAS'],
   combo_4_patas_yerbera: ['CAMIONERO 4 PATAS', 'YERBERAS'],
+  combo_camionero_yerbera: ['CAMIONEROS', 'YERBERAS'],
   combo_criollo: ['CRIOLLOS', 'BOMBILLAS'],
   combo_camionero: ['CAMIONEROS', 'BOMBILLAS'],
   combo_camionero_4_patas: ['CAMIONERO 4 PATAS', 'BOMBILLAS']
