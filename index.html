@@ -443,7 +443,8 @@ nav.scrolled { padding: 0.8rem 3rem; }
   font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-style: italic; color: var(--ember);
 }
 .pack-incluye { display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: center; margin: 0.3rem 0 0.9rem; font-size: 0.9rem; color: var(--brown-dark); }
-.pack-incluye b { width: 100%; font-weight: 700; }
+.pack-incluye > b { width: 100%; font-weight: 700; }
+.pack-incluye span b { font-weight: 800; color: var(--ember); }
 .pack-incluye span { background: rgba(184, 150, 78, 0.18); border: 1px solid rgba(184, 150, 78, 0.45); padding: 0.15rem 0.55rem; border-radius: 999px; }
 .cat-tiles-title { text-align: center; font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--brown-dark); margin: 0 0 1rem; }
 .cat-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; max-width: 760px; margin: 0 auto 2.2rem; }
@@ -459,11 +460,8 @@ nav.scrolled { padding: 0.8rem 3rem; }
 .cat-tile-img.split img { width: 50%; }
 .tile-plus {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2;
-  width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--gold);
-  background:
-    linear-gradient(var(--gold-light), var(--gold-light)) center / 12px 2px no-repeat,
-    linear-gradient(var(--gold-light), var(--gold-light)) center / 2px 12px no-repeat,
-    var(--brown-dark);
+  width: 26px; height: 26px; border-radius: 50%;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='11.2' fill='%233A2419' stroke='%23B8964E' stroke-width='1.6'/%3E%3Cpath d='M12 6.6v10.8M6.6 12h10.8' stroke='%23D4AF70' stroke-width='2.8' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
 }
 .cat-tile-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--brown-dark); }
 .cat-tile-sub { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; color: var(--brown-light); padding: 0 0.3rem; line-height: 1.2; }
@@ -982,13 +980,9 @@ footer::before {
 .combo-img-split .split-divider::after {
   content: ''; position: absolute; top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  /* el "+" se dibuja con dos barras: más grande y centrado exacto dentro del círculo */
-  background:
-    linear-gradient(var(--gold-light), var(--gold-light)) center / 14px 2px no-repeat,
-    linear-gradient(var(--gold-light), var(--gold-light)) center / 2px 14px no-repeat,
-    var(--brown-dark);
-  width: 22px; height: 22px; border-radius: 50%;
-  border: 1px solid var(--gold);
+  /* el "+" es un SVG: queda centrado exacto en cualquier pantalla */
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='11.2' fill='%233A2419' stroke='%23B8964E' stroke-width='1.6'/%3E%3Cpath d='M12 6.6v10.8M6.6 12h10.8' stroke='%23D4AF70' stroke-width='2.8' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  width: 26px; height: 26px; border-radius: 50%;
 }
 .product-card:hover .combo-img-split .split-img {
   filter: sepia(5%) contrast(1.1);
@@ -2065,7 +2059,7 @@ footer::before {
         </div>
         <div class="product-info">
           <h3 class="product-name">Ronda Lista criollo</h3>
-          <p class="pack-incluye"><b>Son 3 productos:</b> <span>🧉 Mate criollo</span><span>+ Bombilla</span><span>+ Yerbera</span></p>
+          <p class="pack-incluye"><b>Son 3 productos:</b> <span>🧉 Mate criollo</span><span><b>+</b> Bombilla</span><span><b>+</b> Yerbera</span></p>
           <div class="product-footer">
             <div><span class="product-price-old">$40.500</span><span class="product-price">$37.999</span></div>
             <button class="product-action" onclick="consultarProducto('Ronda Lista criollo (mate + bombilla + yerbera)', '$37.999')">Consultar</button>
@@ -2087,7 +2081,7 @@ footer::before {
         </div>
         <div class="product-info">
           <h3 class="product-name">Ronda Lista camionero 4 patas</h3>
-          <p class="pack-incluye"><b>Son 3 productos:</b> <span>🧉 Camionero 4 patas</span><span>+ Bombilla</span><span>+ Yerbera</span></p>
+          <p class="pack-incluye"><b>Son 3 productos:</b> <span>🧉 Camionero 4 patas</span><span><b>+</b> Bombilla</span><span><b>+</b> Yerbera</span></p>
           <div class="product-footer">
             <div><span class="product-price-old">$41.000</span><span class="product-price">$37.999</span></div>
             <button class="product-action" onclick="consultarProducto('Ronda Lista camionero 4 patas (mate + bombilla + yerbera)', '$37.999')">Consultar</button>
@@ -2109,7 +2103,7 @@ footer::before {
         </div>
         <div class="product-info">
           <h3 class="product-name">Ronda Lista camionero de algarrobo</h3>
-          <p class="pack-incluye"><b>Son 3 productos:</b> <span>🧉 Camionero de algarrobo</span><span>+ Bombilla</span><span>+ Yerbera</span></p>
+          <p class="pack-incluye"><b>Son 3 productos:</b> <span>🧉 Camionero de algarrobo</span><span><b>+</b> Bombilla</span><span><b>+</b> Yerbera</span></p>
           <div class="product-footer">
             <div><span class="product-price-old">$44.000</span><span class="product-price">$41.499</span></div>
             <button class="product-action" onclick="consultarProducto('Ronda Lista camionero de algarrobo (mate + bombilla + yerbera)', '$41.499')">Consultar</button>
@@ -2922,6 +2916,12 @@ initHoverCycle();
 const GIFT_MATERIALS = { calabaza: 'Calabaza natural', algarrobo: 'Algarrobo oscuro' };
 const GIFT_MATERIAL_TXT = { calabaza: 'mates de calabaza', algarrobo: 'mates de algarrobo', combos: 'combos', accesorios: 'accesorios', bombillas: 'bombillas' };
 const GIFT_CAT_LABEL = { accesorios: 'Yerberas', bombillas: 'Bombillas' };
+// Nombres que entiende cualquiera (el cliente no sabe qué es la "Ronda Lista")
+const GIFT_NOMBRE_CLARO = {
+  ronda_lista_criollo: 'Mate criollo + bombilla + yerbera',
+  ronda_lista_4_patas: 'Camionero 4 patas + bombilla + yerbera',
+  ronda_lista_camionero: 'Camionero de algarrobo + bombilla + yerbera'
+};
 function giftCatalog() {
   const seen = new Set();
   return [...document.querySelectorAll('.product-card')].map(card => {
@@ -2945,7 +2945,7 @@ function giftCatalog() {
       key, cat, material,
       isMate: cat === 'combos' || !!material,
       name: m ? m[2].replace(/\\'/g, "'") : cardName,
-      displayName: cardName || (m ? m[2] : ''),
+      displayName: GIFT_NOMBRE_CLARO[key] || cardName || (m ? m[2] : ''),
       price: parseFloat(card.getAttribute('data-price')),
       img: m ? m[3] : (imgEl ? imgEl.getAttribute('src') : '')
     };
@@ -4070,7 +4070,7 @@ function vizProducts() {
     const oldEl = card.querySelector('.product-price-old');
     return {
       key, cat: card.getAttribute('data-cat'),
-      name: ((card.querySelector('.product-name') || {}).textContent || '').trim(),
+      name: GIFT_NOMBRE_CLARO[key] || ((card.querySelector('.product-name') || {}).textContent || '').trim(),
       price: parseFloat(card.getAttribute('data-price')),
       old: oldEl ? oldEl.textContent.trim() : '',
       stock: key ? stockFor(key) : null
