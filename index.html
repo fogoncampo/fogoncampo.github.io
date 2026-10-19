@@ -438,6 +438,40 @@ nav.scrolled { padding: 0.8rem 3rem; }
   border-bottom: 1px solid var(--sand);
 }
 .grid-group-title:first-child { margin-top: 0; }
+.combo-group-title {
+  grid-column: 1 / -1; margin: 0.6rem 0 -0.4rem;
+  font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-style: italic; color: var(--ember);
+}
+.pack-incluye { display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: center; margin: 0.3rem 0 0.9rem; font-size: 0.9rem; color: var(--brown-dark); }
+.pack-incluye b { width: 100%; font-weight: 700; }
+.pack-incluye span { background: rgba(184, 150, 78, 0.18); border: 1px solid rgba(184, 150, 78, 0.45); padding: 0.15rem 0.55rem; border-radius: 999px; }
+.cat-tiles-title { text-align: center; font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--brown-dark); margin: 0 0 1rem; }
+.cat-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; max-width: 760px; margin: 0 auto 2.2rem; }
+.cat-tile {
+  background: var(--parchment); border: 1px solid rgba(184, 150, 78, 0.35); padding: 0 0 0.7rem;
+  cursor: pointer; display: flex; flex-direction: column; align-items: center; text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; font: inherit;
+}
+.cat-tile:hover, .cat-tile.active { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(58, 36, 25, 0.18); border-color: var(--ember); }
+.cat-tile-img { display: flex; width: 100%; aspect-ratio: 1 / 1; overflow: hidden; margin-bottom: 0.6rem; }
+.cat-tile-img img { width: 100%; height: 100%; object-fit: cover; }
+.cat-tile-img { position: relative; }
+.cat-tile-img.split img { width: 50%; }
+.tile-plus {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2;
+  width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--gold);
+  background:
+    linear-gradient(var(--gold-light), var(--gold-light)) center / 12px 2px no-repeat,
+    linear-gradient(var(--gold-light), var(--gold-light)) center / 2px 12px no-repeat,
+    var(--brown-dark);
+}
+.cat-tile-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--brown-dark); }
+.cat-tile-sub { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; color: var(--brown-light); padding: 0 0.3rem; line-height: 1.2; }
+@media (max-width: 480px) {
+  .cat-tiles { gap: 0.5rem; }
+  .cat-tile-name { font-size: 0.95rem; }
+  .cat-tile-sub { font-size: 0.72rem; }
+}
 @media (max-width: 480px) {
   .category-nav .cat-btn { padding: 0.5rem 0.75rem; letter-spacing: 0.06em; }
   .grid-group-title { font-size: 1.3rem; }
@@ -1824,6 +1858,21 @@ footer::before {
     <span class="gift-trigger-cta">Empezar →</span>
   </button>
   <div class="products-section">
+    <p class="cat-tiles-title">¿Qué estás buscando?</p>
+    <div class="cat-tiles">
+      <button type="button" class="cat-tile" data-go="mates">
+        <span class="cat-tile-img"><img decoding="async" src="mate-imperial-cuero-crudo-con-base-1.jpeg" alt=""></span>
+        <span class="cat-tile-name">Mates</span><span class="cat-tile-sub">Calabaza y algarrobo</span>
+      </button>
+      <button type="button" class="cat-tile" data-go="combos">
+        <span class="cat-tile-img split"><img loading="lazy" decoding="async" src="mate-camionero-algarrobo-1.jpeg" alt=""><span class="tile-plus"></span><img loading="lazy" decoding="async" src="Bombilla_pico_de_loro__inoxidable_.jpeg" alt=""></span>
+        <span class="cat-tile-name">Combos</span><span class="cat-tile-sub">Packs con descuento</span>
+      </button>
+      <button type="button" class="cat-tile" data-go="accesorios">
+        <span class="cat-tile-img"><img decoding="async" src="yerbera.jpeg" alt=""></span>
+        <span class="cat-tile-name">Accesorios</span><span class="cat-tile-sub">Yerberas y bombillas</span>
+      </button>
+    </div>
     <div class="category-nav">
       <button class="cat-btn active" data-cat="todos">Todos</button>
       <button class="cat-btn" data-cat="mates">Mates</button>
@@ -1834,6 +1883,12 @@ footer::before {
       <button class="sub-btn active" data-sub="todos">Todos los mates</button>
       <button class="sub-btn" data-sub="calabaza">Calabaza</button>
       <button class="sub-btn" data-sub="algarrobo">Algarrobo</button>
+    </div>
+    <div class="sub-nav" id="subNavCombos" hidden>
+      <button class="sub-btn active" data-sub="todos">Todos los combos</button>
+      <button class="sub-btn" data-sub="ronda">Ronda Lista</button>
+      <button class="sub-btn" data-sub="bombilla">Mate + bombilla</button>
+      <button class="sub-btn" data-sub="yerbera">Mate + yerbera</button>
     </div>
     <div class="price-filter">
       <label for="priceRange" class="price-filter-label">Hasta <span id="priceRangeVal">$50.000</span></label>
@@ -1994,50 +2049,12 @@ footer::before {
       </div>
 
       <h3 class="grid-group-title" data-group="combos">Combos</h3>
-      <!-- COMBO CRIOLLO + YERBERA -->
-      <div class="product-card" data-cat="combos" data-price="31999">
-        <div class="product-img-wrap has-gallery" data-gallery-key="combo_criollo_yerbera" onclick="openProductDetail('combo_criollo_yerbera')">
-          <span class="product-badge">Oferta</span>
-          <div class="combo-img-split">
-            <img loading="lazy" decoding="async" class="split-img" src="Mate_Criollo_de_calabaza.jpeg" alt="Mate criollo" onerror="this.style.background='#D4C4A0'">
-            <div class="split-divider"></div>
-            <img loading="lazy" decoding="async" class="split-img" src="yerbera.jpeg" alt="Yerbera Fogón" onerror="this.style.background='#D4C4A0'">
-          </div>
-        </div>
-        <div class="product-info">
-          <h3 class="product-name">Combo criollo + yerbera</h3>
-          <p class="product-desc">Mate criollo de calabaza y yerbera de gamuza.</p>
-          <div class="product-footer">
-            <div><span class="product-price-old">$34.000</span><span class="product-price">$31.999</span></div>
-            <button class="product-action" onclick="consultarProducto('Combo criollo + yerbera', '$31.999')">Consultar</button>
-            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart('combo_criollo_yerbera','Combo criollo + yerbera',31999,'Mate_Criollo_de_calabaza.jpeg',this)">🛒 Agregar</button>
-          </div>
-        </div>
-      </div>
-      <!-- COMBO CAMIONERO 4 PATAS + YERBERA -->
-      <div class="product-card" data-cat="combos" data-price="32499">
-        <div class="product-img-wrap has-gallery" data-gallery-key="combo_4_patas_yerbera" onclick="openProductDetail('combo_4_patas_yerbera')">
-          <span class="product-badge">Oferta</span>
-          <div class="combo-img-split">
-            <img loading="lazy" decoding="async" class="split-img" src="mate-camionero-4-patas-1.jpeg" alt="Mate camionero 4 patas" onerror="this.style.background='#D4C4A0'">
-            <div class="split-divider"></div>
-            <img loading="lazy" decoding="async" class="split-img" src="yerbera.jpeg" alt="Yerbera Fogón" onerror="this.style.background='#D4C4A0'">
-          </div>
-        </div>
-        <div class="product-info">
-          <h3 class="product-name">Combo camionero 4 patas + yerbera</h3>
-          <p class="product-desc">Camionero 4 patas de cuero y yerbera de gamuza.</p>
-          <div class="product-footer">
-            <div><span class="product-price-old">$34.500</span><span class="product-price">$32.499</span></div>
-            <button class="product-action" onclick="consultarProducto('Combo camionero 4 patas + yerbera', '$32.499')">Consultar</button>
-            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart('combo_4_patas_yerbera','Combo camionero 4 patas + yerbera',32499,'mate-camionero-4-patas-1.jpeg',this)">🛒 Agregar</button>
-          </div>
-        </div>
-      </div>
+
+      <h4 class="combo-group-title" data-combo-title="ronda">Ronda Lista · mate, bombilla y yerbera</h4>
       <!-- RONDA LISTA CRIOLLO -->
-      <div class="product-card" data-cat="combos" data-price="37999">
+      <div class="product-card" data-cat="combos" data-combo="ronda" data-price="37999">
         <div class="product-img-wrap has-gallery" data-gallery-key="ronda_lista_criollo" onclick="openProductDetail('ronda_lista_criollo')">
-          <span class="product-badge">Pack</span>
+          <span class="product-badge">3 productos</span>
           <div class="combo-img-split split-3">
             <img loading="lazy" decoding="async" class="split-img" src="Mate_Criollo_de_calabaza.jpeg" alt="Mate criollo" onerror="this.style.background='#D4C4A0'">
             <div class="split-divider"></div>
@@ -2048,18 +2065,18 @@ footer::before {
         </div>
         <div class="product-info">
           <h3 class="product-name">Ronda Lista criollo</h3>
-          <p class="product-desc">Mate criollo, bombilla y yerbera: todo para arrancar.</p>
+          <p class="pack-incluye"><b>Son 3 productos:</b> <span>🧉 Mate criollo</span><span>+ Bombilla</span><span>+ Yerbera</span></p>
           <div class="product-footer">
             <div><span class="product-price-old">$40.500</span><span class="product-price">$37.999</span></div>
-            <button class="product-action" onclick="consultarProducto('Ronda Lista criollo', '$37.999')">Consultar</button>
-            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart('ronda_lista_criollo','Ronda Lista criollo',37999,'Mate_Criollo_de_calabaza.jpeg',this)">🛒 Agregar</button>
+            <button class="product-action" onclick="consultarProducto('Ronda Lista criollo (mate + bombilla + yerbera)', '$37.999')">Consultar</button>
+            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart('ronda_lista_criollo','Ronda Lista criollo (mate + bombilla + yerbera)',37999,'Mate_Criollo_de_calabaza.jpeg',this)">🛒 Agregar</button>
           </div>
         </div>
       </div>
       <!-- RONDA LISTA CAMIONERO 4 PATAS -->
-      <div class="product-card" data-cat="combos" data-price="37999">
+      <div class="product-card" data-cat="combos" data-combo="ronda" data-price="37999">
         <div class="product-img-wrap has-gallery" data-gallery-key="ronda_lista_4_patas" onclick="openProductDetail('ronda_lista_4_patas')">
-          <span class="product-badge">Pack</span>
+          <span class="product-badge">3 productos</span>
           <div class="combo-img-split split-3">
             <img loading="lazy" decoding="async" class="split-img" src="mate-camionero-4-patas-1.jpeg" alt="Mate camionero 4 patas" onerror="this.style.background='#D4C4A0'">
             <div class="split-divider"></div>
@@ -2070,18 +2087,18 @@ footer::before {
         </div>
         <div class="product-info">
           <h3 class="product-name">Ronda Lista camionero 4 patas</h3>
-          <p class="product-desc">Camionero 4 patas, bombilla y yerbera: todo para arrancar.</p>
+          <p class="pack-incluye"><b>Son 3 productos:</b> <span>🧉 Camionero 4 patas</span><span>+ Bombilla</span><span>+ Yerbera</span></p>
           <div class="product-footer">
             <div><span class="product-price-old">$41.000</span><span class="product-price">$37.999</span></div>
-            <button class="product-action" onclick="consultarProducto('Ronda Lista camionero 4 patas', '$37.999')">Consultar</button>
-            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart('ronda_lista_4_patas','Ronda Lista camionero 4 patas',37999,'mate-camionero-4-patas-1.jpeg',this)">🛒 Agregar</button>
+            <button class="product-action" onclick="consultarProducto('Ronda Lista camionero 4 patas (mate + bombilla + yerbera)', '$37.999')">Consultar</button>
+            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart('ronda_lista_4_patas','Ronda Lista camionero 4 patas (mate + bombilla + yerbera)',37999,'mate-camionero-4-patas-1.jpeg',this)">🛒 Agregar</button>
           </div>
         </div>
       </div>
       <!-- RONDA LISTA CAMIONERO DE ALGARROBO -->
-      <div class="product-card" data-cat="combos" data-price="41499">
+      <div class="product-card" data-cat="combos" data-combo="ronda" data-price="41499">
         <div class="product-img-wrap has-gallery" data-gallery-key="ronda_lista_camionero" onclick="openProductDetail('ronda_lista_camionero')">
-          <span class="product-badge">Pack</span>
+          <span class="product-badge">3 productos</span>
           <div class="combo-img-split split-3">
             <img loading="lazy" decoding="async" class="split-img" src="mate-camionero-algarrobo-1.jpeg" alt="Mate camionero de algarrobo" onerror="this.style.background='#D4C4A0'">
             <div class="split-divider"></div>
@@ -2092,16 +2109,18 @@ footer::before {
         </div>
         <div class="product-info">
           <h3 class="product-name">Ronda Lista camionero de algarrobo</h3>
-          <p class="product-desc">Camionero de algarrobo, bombilla y yerbera: todo para arrancar.</p>
+          <p class="pack-incluye"><b>Son 3 productos:</b> <span>🧉 Camionero de algarrobo</span><span>+ Bombilla</span><span>+ Yerbera</span></p>
           <div class="product-footer">
             <div><span class="product-price-old">$44.000</span><span class="product-price">$41.499</span></div>
-            <button class="product-action" onclick="consultarProducto('Ronda Lista camionero de algarrobo', '$41.499')">Consultar</button>
-            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart('ronda_lista_camionero','Ronda Lista camionero de algarrobo',41499,'mate-camionero-algarrobo-1.jpeg',this)">🛒 Agregar</button>
+            <button class="product-action" onclick="consultarProducto('Ronda Lista camionero de algarrobo (mate + bombilla + yerbera)', '$41.499')">Consultar</button>
+            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart('ronda_lista_camionero','Ronda Lista camionero de algarrobo (mate + bombilla + yerbera)',41499,'mate-camionero-algarrobo-1.jpeg',this)">🛒 Agregar</button>
           </div>
         </div>
       </div>
+
+      <h4 class="combo-group-title" data-combo-title="bombilla">Mate + bombilla</h4>
       <!-- COMBO CRIOLLO -->
-      <div class="product-card" data-cat="combos" data-price="21999">
+      <div class="product-card" data-cat="combos" data-combo="bombilla" data-price="21999">
         <div class="product-img-wrap has-gallery" data-gallery-key="combo_criollo" onclick="openProductDetail('combo_criollo')">
           <span class="product-badge">Oferta</span>
           <div class="combo-img-split">
@@ -2121,7 +2140,7 @@ footer::before {
         </div>
       </div>
       <!-- COMBO CAMIONERO -->
-      <div class="product-card" data-cat="combos" data-price="25500">
+      <div class="product-card" data-cat="combos" data-combo="bombilla" data-price="25500">
         <div class="product-img-wrap has-gallery" data-gallery-key="combo_camionero" onclick="openProductDetail('combo_camionero')">
           <span class="product-badge">Oferta</span>
           <div class="combo-img-split">
@@ -2141,7 +2160,7 @@ footer::before {
         </div>
       </div>
       <!-- COMBO CAMIONERO 4 PATAS -->
-      <div class="product-card" data-cat="combos" data-price="22500">
+      <div class="product-card" data-cat="combos" data-combo="bombilla" data-price="22500">
         <div class="product-img-wrap has-gallery" data-gallery-key="combo_camionero_4_patas" onclick="openProductDetail('combo_camionero_4_patas')">
           <span class="product-badge">Oferta</span>
           <div class="combo-img-split">
@@ -2161,6 +2180,48 @@ footer::before {
         </div>
       </div>
 
+
+      <h4 class="combo-group-title" data-combo-title="yerbera">Mate + yerbera</h4>
+      <!-- COMBO CRIOLLO + YERBERA -->
+      <div class="product-card" data-cat="combos" data-combo="yerbera" data-price="31999">
+        <div class="product-img-wrap has-gallery" data-gallery-key="combo_criollo_yerbera" onclick="openProductDetail('combo_criollo_yerbera')">
+          <span class="product-badge">Oferta</span>
+          <div class="combo-img-split">
+            <img loading="lazy" decoding="async" class="split-img" src="Mate_Criollo_de_calabaza.jpeg" alt="Mate criollo" onerror="this.style.background='#D4C4A0'">
+            <div class="split-divider"></div>
+            <img loading="lazy" decoding="async" class="split-img" src="yerbera.jpeg" alt="Yerbera Fogón" onerror="this.style.background='#D4C4A0'">
+          </div>
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">Combo criollo + yerbera</h3>
+          <p class="product-desc">Mate criollo de calabaza y yerbera de gamuza.</p>
+          <div class="product-footer">
+            <div><span class="product-price-old">$34.000</span><span class="product-price">$31.999</span></div>
+            <button class="product-action" onclick="consultarProducto('Combo criollo + yerbera', '$31.999')">Consultar</button>
+            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart('combo_criollo_yerbera','Combo criollo + yerbera',31999,'Mate_Criollo_de_calabaza.jpeg',this)">🛒 Agregar</button>
+          </div>
+        </div>
+      </div>
+      <!-- COMBO CAMIONERO 4 PATAS + YERBERA -->
+      <div class="product-card" data-cat="combos" data-combo="yerbera" data-price="32499">
+        <div class="product-img-wrap has-gallery" data-gallery-key="combo_4_patas_yerbera" onclick="openProductDetail('combo_4_patas_yerbera')">
+          <span class="product-badge">Oferta</span>
+          <div class="combo-img-split">
+            <img loading="lazy" decoding="async" class="split-img" src="mate-camionero-4-patas-1.jpeg" alt="Mate camionero 4 patas" onerror="this.style.background='#D4C4A0'">
+            <div class="split-divider"></div>
+            <img loading="lazy" decoding="async" class="split-img" src="yerbera.jpeg" alt="Yerbera Fogón" onerror="this.style.background='#D4C4A0'">
+          </div>
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">Combo camionero 4 patas + yerbera</h3>
+          <p class="product-desc">Camionero 4 patas de cuero y yerbera de gamuza.</p>
+          <div class="product-footer">
+            <div><span class="product-price-old">$34.500</span><span class="product-price">$32.499</span></div>
+            <button class="product-action" onclick="consultarProducto('Combo camionero 4 patas + yerbera', '$32.499')">Consultar</button>
+            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart('combo_4_patas_yerbera','Combo camionero 4 patas + yerbera',32499,'mate-camionero-4-patas-1.jpeg',this)">🛒 Agregar</button>
+          </div>
+        </div>
+      </div>
       <h3 class="grid-group-title" data-group="accesorios">Accesorios</h3>
       <!-- YERBERA -->
       <div class="product-card" data-cat="accesorios" data-price="16000">
@@ -2611,11 +2672,13 @@ const cards = document.querySelectorAll('.product-card');
 const priceRange = document.getElementById('priceRange');
 const priceRangeVal = document.getElementById('priceRangeVal');
 let activeCat = 'todos';
-let activeSub = 'todos';
+// Sub-filtro elegido en cada pestaña (Mates: calabaza/algarrobo; Combos: tipo de combo)
+const activeSubs = { mates: 'todos', combos: 'todos' };
 // Cada pestaña agrupa categorías de las tarjetas
 const CAT_GROUPS = { mates: ['calabaza', 'algarrobo'], combos: ['combos'], accesorios: ['accesorios', 'bombillas'] };
 function cardGroup(card) { return Object.keys(CAT_GROUPS).find(g => CAT_GROUPS[g].includes(card.dataset.cat)); }
-const subNavMates = document.getElementById('subNavMates');
+const subNavs = { mates: document.getElementById('subNavMates'), combos: document.getElementById('subNavCombos') };
+function cardSub(card, g) { return g === 'combos' ? card.dataset.combo : card.dataset.cat; }
 
 function applyFilters() {
   const maxPrice = Number(priceRange.value);
@@ -2623,25 +2686,44 @@ function applyFilters() {
   cards.forEach(card => {
     const g = cardGroup(card);
     const matchesCat = activeCat === 'todos' || g === activeCat;
-    const matchesSub = activeCat !== 'mates' || activeSub === 'todos' || card.dataset.cat === activeSub;
+    const sub = activeSubs[activeCat];
+    const matchesSub = !sub || sub === 'todos' || cardSub(card, g) === sub;
     const matchesPrice = Number(card.dataset.price) <= maxPrice;
     const show = matchesCat && matchesSub && matchesPrice;
     card.style.display = show ? '' : 'none';
-    if (show) visibles[g] = true;
+    if (show) { visibles[g] = true; if (g === 'combos') visibles['combo-' + card.dataset.combo] = true; }
   });
   // Títulos Mates / Combos / Accesorios: solo en "Todos" y si su grupo tiene algo para mostrar
   document.querySelectorAll('.grid-group-title').forEach(t => {
     t.style.display = activeCat === 'todos' && visibles[t.dataset.group] ? '' : 'none';
   });
-  if (subNavMates) subNavMates.hidden = activeCat !== 'mates';
+  // Subtítulos de cada tipo de combo: se ven si hay combos de ese tipo en pantalla
+  document.querySelectorAll('.combo-group-title').forEach(t => {
+    t.style.display = visibles['combo-' + t.dataset.comboTitle] ? '' : 'none';
+  });
+  Object.entries(subNavs).forEach(([g, nav]) => { if (nav) nav.hidden = activeCat !== g; });
+  document.querySelectorAll('.cat-tile').forEach(t => t.classList.toggle('active', t.dataset.go === activeCat));
 }
 
-document.querySelectorAll('.sub-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    activeSub = btn.dataset.sub;
-    applyFilters();
+document.querySelectorAll('.sub-nav').forEach(nav => {
+  const g = nav.id === 'subNavCombos' ? 'combos' : 'mates';
+  nav.querySelectorAll('.sub-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      nav.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeSubs[g] = btn.dataset.sub;
+      applyFilters();
+    });
+  });
+});
+
+// Cuadrados "¿Qué estás buscando?": abren la pestaña y bajan hasta los productos
+document.querySelectorAll('.cat-tile').forEach(tile => {
+  tile.addEventListener('click', () => {
+    const btn = document.querySelector(`.cat-btn[data-cat="${tile.dataset.go}"]`);
+    if (btn) btn.click();
+    const nav = document.querySelector('.category-nav');
+    window.scrollTo({ top: nav.getBoundingClientRect().top + window.scrollY - 130, behavior: 'smooth' });
   });
 });
 
