@@ -1143,6 +1143,14 @@ footer::before {
 .color-chip { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.3rem 0.7rem; border: 1.5px solid rgba(123,78,45,0.35); border-radius: 999px; background: transparent; color: var(--brown-dark); font: inherit; font-size: 0.9rem; cursor: pointer; }
 .color-chip i { width: 14px; height: 14px; border-radius: 50%; border: 1px solid rgba(200,170,110,0.8); display: inline-block; }
 .color-chip.active { border-color: var(--brown-dark); background: var(--brown-dark); color: var(--cream); }
+
+/* Envío gratis: barra de progreso en el carrito y aviso al agregar */
+.envio-progreso { height: 10px; border-radius: 999px; background: rgba(123,78,45,0.18); overflow: hidden; margin: 0.6rem 0 0.2rem; }
+.envio-progreso i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #C8AA6E, #7B4E2D); border-radius: 999px; transition: width 0.4s ease; }
+.envio-progreso.ok i { background: #2e7d32; }
+.envio-toast { position: fixed; left: 50%; bottom: 1.2rem; transform: translate(-50%, 140%); z-index: 400; background: var(--brown-dark); color: var(--cream); border: 2px solid #C8AA6E; border-radius: 12px; padding: 0.75rem 1rem; font-size: 0.95rem; max-width: 92vw; box-shadow: 0 8px 22px rgba(0,0,0,0.3); transition: transform 0.35s ease; text-align: center; }
+.envio-toast.show { transform: translate(-50%, 0); }
+.envio-toast b { color: #C8AA6E; }
 /* ── HOVER DINÁMICO EN LA VIDRIERA ── */
 .product-img-wrap.has-gallery { cursor: pointer; }
 .product-img-wrap.has-gallery .product-img,
@@ -2579,6 +2587,7 @@ footer::before {
       <div class="cart-total-row final">
         <span>Total</span><span id="cartTotalFinal"></span>
       </div>
+      <div class="envio-progreso" id="envioProgreso"><i></i></div>
       <p class="cart-envio-msg" id="cartEnvioMsg"></p>
       <button class="cart-checkout-btn" onclick="checkoutCart()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
@@ -3344,6 +3353,8 @@ function recalcTotals() {
   if (envioEl) {
     const e = envioInfo(final);
     envioEl.textContent = e.msg; envioEl.className = 'cart-envio-msg' + (e.gratis ? ' ok' : '');
+    const bar = document.getElementById('envioProgreso');
+    if (bar) { bar.querySelector('i').style.width = Math.min(100, final / ENVIO_GRATIS_MIN * 100) + '%'; bar.classList.toggle('ok', e.gratis); bar.style.display = appliedCoupon ? 'none' : ''; }
   }
 }
 // Envío gratis a sucursal desde $50.000 pagados (después de descuentos). No se combina con los cupones de la Ronda.
@@ -4429,6 +4440,24 @@ changeQty = function (key, delta) {
   if (delta > 0 && n && canastasEnCarrito() + delta > n) { stockToast(stockLimitText('Canasta matera', n)); return; }
   return _changeQtyCanasta(key, delta);
 };
+</script>
+<script>
+// Envío gratis: al agregar algo, avisa cuánto falta (o que ya lo tiene)
+(function () {
+  const _add = addToCart;
+  addToCart = function () {
+    const antes = CART.reduce((a, i) => a + i.qty, 0);
+    const r = _add.apply(this, arguments);
+    if (CART.reduce((a, i) => a + i.qty, 0) > antes && !appliedCoupon) {
+      const total = CART.reduce((a, i) => a + i.price * i.qty, 0);
+      let t = document.getElementById('envioToast');
+      if (!t) { t = document.createElement('div'); t.id = 'envioToast'; t.className = 'envio-toast'; document.body.appendChild(t); }
+      t.innerHTML = total >= ENVIO_GRATIS_MIN ? '🎉 <b>¡Ya tenés envío gratis</b> a todo el país!' : `🚚 Te faltan <b>${fmtMoney(ENVIO_GRATIS_MIN - total)}</b> para el <b>envío gratis</b>`;
+      t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 3800);
+    }
+    return r;
+  };
+})();
 </script>
 <script>
 // MEDICIÓN: GoatCounter (fogon.goatcounter.com) cuenta las visitas y los clics a WhatsApp.
