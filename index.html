@@ -3731,7 +3731,7 @@ const STOCK_MAP = {
   vaquita_ranchero:        ['VAQUITA'],
   camionero_clasico:       ['CAMIONEROS'],
   yerbera:                 ['YERBERAS'],
-  canasta_negra:           ['CANASTAS MATERAS'], // los dos colores comparten la fila del Sheet
+  canasta_negra:           ['CANASTAS MATERAS'], // total; si hay filas por color, las lee el script de la canasta
   canasta_marron:          ['CANASTAS MATERAS'],
   bombilla:                ['BOMBILLAS']
 };
@@ -4375,14 +4375,27 @@ function elegirColorCanasta(chip) {
   });
   if (typeof applyStockToCards === 'function') applyStockToCards();
 }
-// Hoy el Sheet tiene una sola fila para las dos. Tope por color mientras no haya una fila por color
-// (Tomás, 20/10: queda 1 negra y 1 marrón). Si se vende una, poner su tope en 0.
+// Stock por color: si el Sheet tiene las filas CANASTA NEGRA y CANASTA MARRON, cada color lee la suya.
+// Si solo está la fila CANASTAS MATERAS, se usa ese total con un tope por color (Tomás, 20/10: 1 negra y 1 marrón).
 const CANASTA_TOPE_POR_COLOR = { canasta_negra: 1, canasta_marron: 1 };
+const CANASTA_FILA_POR_COLOR = { canasta_negra: 'CANASTA NEGRA', canasta_marron: 'CANASTA MARRON' };
+let STOCK_TABLE = {};
+const _readStockTableCanasta = readStockTable;
+readStockTable = function (rows) { STOCK_TABLE = _readStockTableCanasta(rows); return STOCK_TABLE; };
 const _applyStockCanasta = applyStockToCards;
-let CANASTAS_TOTAL = null; // stock de la fila CANASTAS MATERAS, sin el tope por color
+let CANASTAS_TOTAL = null; // total compartido, solo cuando no hay fila por color
 applyStockToCards = function () {
-  if (typeof STOCK.canasta_negra === 'number' && !STOCK._canastaTopeado) { CANASTAS_TOTAL = STOCK.canasta_negra; STOCK._canastaTopeado = true; }
-  Object.entries(CANASTA_TOPE_POR_COLOR).forEach(([k, tope]) => { if (typeof STOCK[k] === 'number') STOCK[k] = Math.min(STOCK[k], tope); });
+  if (!STOCK._canastaListo) {
+    STOCK._canastaListo = true;
+    const porColor = Object.entries(CANASTA_FILA_POR_COLOR).map(([k, fila]) => [k, STOCK_TABLE[stockNorm(fila)]]);
+    if (porColor.every(([, v]) => typeof v === 'number')) {
+      porColor.forEach(([k, v]) => { STOCK[k] = v; });
+      CANASTAS_TOTAL = null;
+    } else if (typeof STOCK.canasta_negra === 'number') {
+      CANASTAS_TOTAL = STOCK.canasta_negra;
+      Object.entries(CANASTA_TOPE_POR_COLOR).forEach(([k, tope]) => { if (typeof STOCK[k] === 'number') STOCK[k] = Math.min(STOCK[k], tope); });
+    }
+  }
   return _applyStockCanasta();
 };
 // Stock compartido: entre negras y marrones no se puede pasar del total del Sheet
