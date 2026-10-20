@@ -2261,7 +2261,7 @@ footer::before {
         </div>
       </div>
       <!-- CANASTA MATERA (dos colores: el selector cambia foto, nombre, stock y lo que va al carrito) -->
-      <div class="product-card" data-cat="accesorios" data-price="43000" data-canasta>
+      <div class="product-card" id="canasta-matera" data-cat="accesorios" data-price="43000" data-canasta>
         <div class="product-img-wrap has-gallery" data-gallery-key="canasta_negra" onclick="openProductDetail(this.dataset.galleryKey)">
           <img loading="lazy" decoding="async" class="product-img" src="canasta-matera-negra-1.jpg" alt="Canasta matera de cuero negra" onerror="this.style.background='#D4C4A0'">
         </div>
@@ -4375,6 +4375,23 @@ function elegirColorCanasta(chip) {
   });
   if (typeof applyStockToCards === 'function') applyStockToCards();
 }
+// Link directo (historias de Instagram): fogoncampo.github.io/#canasta-matera abre la canasta negra;
+// #canasta-matera-marron, la marrón.
+function abrirCanastaDesdeLink() {
+  const m = location.hash.match(/^#canasta-matera(-marron|-negra)?$/);
+  if (!m) return;
+  const color = m[1] === '-marron' ? 'marron' : 'negra';
+  const tab = document.querySelector('.cat-btn[data-cat="accesorios"]');
+  if (tab) tab.click();
+  const card = document.getElementById('canasta-matera');
+  if (!card) return;
+  elegirColorCanasta(card.querySelector(`.color-chip[data-color="${color}"]`));
+  card.scrollIntoView({ block: 'center' });
+  setTimeout(() => { card.scrollIntoView({ block: 'center' }); openProductDetail('canasta_' + color); }, 700);
+}
+if (document.readyState === 'complete') setTimeout(abrirCanastaDesdeLink, 300);
+else window.addEventListener('load', () => setTimeout(abrirCanastaDesdeLink, 300));
+window.addEventListener('hashchange', abrirCanastaDesdeLink);
 // Stock por color: si el Sheet tiene las filas CANASTA NEGRA y CANASTA MARRON, cada color lee la suya.
 // Si solo está la fila CANASTAS MATERAS, se usa ese total con un tope por color (Tomás, 20/10: 1 negra y 1 marrón).
 const CANASTA_TOPE_POR_COLOR = { canasta_negra: 1, canasta_marron: 1 };
