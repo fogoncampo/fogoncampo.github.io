@@ -1136,6 +1136,13 @@ footer::before {
   opacity: 0.7;
 }
 
+
+/* Canasta: selector de color */
+.color-pick { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; margin: 0.1rem 0 0.6rem; }
+.color-pick-label { font-size: 0.85rem; color: var(--brown-light); }
+.color-chip { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.3rem 0.7rem; border: 1.5px solid rgba(123,78,45,0.35); border-radius: 999px; background: transparent; color: var(--brown-dark); font: inherit; font-size: 0.9rem; cursor: pointer; }
+.color-chip i { width: 14px; height: 14px; border-radius: 50%; border: 1px solid rgba(200,170,110,0.8); display: inline-block; }
+.color-chip.active { border-color: var(--brown-dark); background: var(--brown-dark); color: var(--cream); }
 /* ── HOVER DINÁMICO EN LA VIDRIERA ── */
 .product-img-wrap.has-gallery { cursor: pointer; }
 .product-img-wrap.has-gallery .product-img,
@@ -2253,6 +2260,26 @@ footer::before {
           </div>
         </div>
       </div>
+      <!-- CANASTA MATERA (dos colores: el selector cambia foto, nombre, stock y lo que va al carrito) -->
+      <div class="product-card" data-cat="accesorios" data-price="43000" data-canasta>
+        <div class="product-img-wrap has-gallery" data-gallery-key="canasta_negra" onclick="openProductDetail(this.dataset.galleryKey)">
+          <img loading="lazy" decoding="async" class="product-img" src="canasta-matera-negra-1.jpg" alt="Canasta matera de cuero negra" onerror="this.style.background='#D4C4A0'">
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">Canasta matera negra</h3>
+          <div class="color-pick" role="group" aria-label="Color">
+            <span class="color-pick-label">Color:</span>
+            <button type="button" class="color-chip active" data-color="negra" aria-pressed="true" onclick="event.stopPropagation(); elegirColorCanasta(this)"><i style="background:#1d1b1a"></i>Negra</button>
+            <button type="button" class="color-chip" data-color="marron" aria-pressed="false" onclick="event.stopPropagation(); elegirColorCanasta(this)"><i style="background:#4a2c1d"></i>Marrón</button>
+          </div>
+          <p class="product-desc">Canasta matera de cuero con costura criolla a la vista, divisor por dentro y manija de cuero. Lleva el termo, el mate y la yerba juntos.</p>
+          <div class="product-footer">
+            <span class="product-price">$43.000</span>
+            <button class="product-action" onclick="consultarProducto('Canasta matera negra', '$43.000')">Consultar</button>
+            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart('canasta_negra','Canasta matera negra',43000,'canasta-matera-negra-1.jpg',this)">🛒 Agregar</button>
+          </div>
+        </div>
+      </div>
       <!-- BOMBILLA -->
       <div class="product-card" data-cat="bombillas" data-price="6500">
         <div class="product-img-wrap has-gallery" data-gallery-key="bombilla" onclick="openProductDetail('bombilla')">
@@ -2773,6 +2800,8 @@ const PRODUCT_GALLERIES = {
   combo_criollo_yerbera: ['mate-criollo-calabaza-cuero-1.jpeg', 'mate-criollo-calabaza-cuero-2.jpeg', 'yerbera-fogon-gamuza-1.jpeg', 'yerbera-fogon-gamuza-2.jpeg'],
   combo_4_patas_yerbera: ['mate-camionero-4-patas-1.jpeg', 'mate-camionero-4-patas-2.jpeg', 'yerbera-fogon-gamuza-1.jpeg', 'yerbera-fogon-gamuza-2.jpeg'],
   combo_camionero_yerbera: ['mate-camionero-algarrobo-1.jpeg', 'mate-camionero-algarrobo-2.jpeg', 'yerbera-fogon-gamuza-1.jpeg', 'yerbera-fogon-gamuza-2.jpeg'],
+  canasta_negra: ['canasta-matera-negra-1.jpg', 'canasta-matera-negra-2.jpg', 'canasta-matera-negra-3.jpg', 'canasta-matera-marron-1.jpg', 'canasta-matera-marron-2.jpg', 'canasta-matera-marron-3.jpg'],
+  canasta_marron: ['canasta-matera-marron-1.jpg', 'canasta-matera-marron-2.jpg', 'canasta-matera-marron-3.jpg', 'canasta-matera-negra-1.jpg', 'canasta-matera-negra-2.jpg', 'canasta-matera-negra-3.jpg'],
   yerbera: ['yerbera-fogon-gamuza-1.jpeg', 'yerbera-fogon-gamuza-2.jpeg', 'yerbera-fogon-gamuza-3.jpeg', 'yerbera-fogon-gamuza-4.jpeg'],
   vaquita_ranchero: ['mate-vaquita-algarrobo-pintado-1.jpeg', 'mate-vaquita-algarrobo-pintado-2.jpeg'],
   bombilla: ['bombilla-pico-de-loro-acero-inoxidable.jpeg'],
@@ -2908,11 +2937,12 @@ function initHoverCycle() {
       preloadAll();
       idx = 0;
       interval = setInterval(() => {
-        idx = (idx + 1) % imgs.length;
-        hoverLayer.src = imgs[idx];
+        const g = PRODUCT_GALLERIES[wrap.dataset.galleryKey] || imgs;
+        idx = (idx + 1) % g.length;
+        hoverLayer.src = g[idx];
         requestAnimationFrame(() => { hoverLayer.style.opacity = '1'; });
         setTimeout(() => {
-          mainImg.src = imgs[idx];
+          mainImg.src = g[idx];
           hoverLayer.style.opacity = '0';
         }, 650);
       }, 2400);
@@ -2922,7 +2952,7 @@ function initHoverCycle() {
       hoverLayer.style.opacity = '0';
       mainImg.style.opacity = '0';
       leaveTimer = setTimeout(() => {
-        mainImg.src = originalSrc;
+        mainImg.src = wrap.dataset.cover || originalSrc;
         mainImg.style.opacity = '1';
       }, 350);
     });
@@ -3701,6 +3731,8 @@ const STOCK_MAP = {
   vaquita_ranchero:        ['VAQUITA'],
   camionero_clasico:       ['CAMIONEROS'],
   yerbera:                 ['YERBERAS'],
+  canasta_negra:           ['CANASTAS MATERAS'], // los dos colores comparten la fila del Sheet
+  canasta_marron:          ['CANASTAS MATERAS'],
   bombilla:                ['BOMBILLAS']
 };
 
@@ -4320,6 +4352,43 @@ getResponse = function (input) {
   document.addEventListener('touchcancel', release, { passive: true });
   window.addEventListener('scroll', function () { if (active) { clearTimeout(clearT); clearT = setTimeout(clear, 600); } }, { passive: true });
 })();
+</script>
+<script>
+// Canasta matera: un solo producto en dos colores. Los dos colores comparten stock y precio (fila CANASTAS MATERAS); en el carrito van en líneas separadas.
+function elegirColorCanasta(chip) {
+  const card = chip.closest('.product-card');
+  const color = chip.dataset.color;
+  const nombre = color === 'marron' ? 'Canasta matera marrón' : 'Canasta matera negra';
+  const key = 'canasta_' + color, img = 'canasta-matera-' + color + '-1.jpg';
+  card.querySelectorAll('.color-chip').forEach(c => { const on = c === chip; c.classList.toggle('active', on); c.setAttribute('aria-pressed', on); });
+  const wrap = card.querySelector('[data-gallery-key]');
+  wrap.setAttribute('data-gallery-key', key);
+  wrap.dataset.cover = img;
+  const im = card.querySelector('.product-img');
+  im.src = img; im.alt = 'Canasta matera de cuero ' + (color === 'marron' ? 'marrón' : 'negra');
+  card.querySelector('.product-name').textContent = nombre;
+  card.querySelectorAll('[onclick]').forEach(el => {
+    const oc = el.getAttribute('onclick');
+    const nc = oc.replace(/addToCart\('canasta_\w+','[^']*',([\d.]+),'[^']*'/, `addToCart('${key}','${nombre}',$1,'${img}'`)
+                 .replace(/consultarProducto\('Canasta matera [^']*'/, `consultarProducto('${nombre}'`);
+    if (nc !== oc) el.setAttribute('onclick', nc);
+  });
+  if (typeof applyStockToCards === 'function') applyStockToCards();
+}
+// Stock compartido: entre negras y marrones no se puede pasar del total del Sheet
+function canastasEnCarrito() { return CART.filter(i => /^canasta_/.test(i.key)).reduce((a, i) => a + i.qty, 0); }
+const _addToCartCanasta = addToCart;
+addToCart = function (key, name, price, img, originEl) {
+  const n = /^canasta_/.test(key) ? stockFor(key) : null;
+  if (n && canastasEnCarrito() >= n) { stockToast(stockLimitText('Canasta matera', n)); flashNoStock(originEl, 'No hay más stock'); return; }
+  return _addToCartCanasta(key, name, price, img, originEl);
+};
+const _changeQtyCanasta = changeQty;
+changeQty = function (key, delta) {
+  const n = /^canasta_/.test(key) ? stockFor(key) : null;
+  if (delta > 0 && n && canastasEnCarrito() + delta > n) { stockToast(stockLimitText('Canasta matera', n)); return; }
+  return _changeQtyCanasta(key, delta);
+};
 </script>
 <script>
 // MEDICIÓN: GoatCounter (fogon.goatcounter.com) cuenta las visitas y los clics a WhatsApp.
