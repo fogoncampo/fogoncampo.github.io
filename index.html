@@ -4375,17 +4375,27 @@ function elegirColorCanasta(chip) {
   });
   if (typeof applyStockToCards === 'function') applyStockToCards();
 }
+// Hoy el Sheet tiene una sola fila para las dos. Tope por color mientras no haya una fila por color
+// (Tomás, 20/10: queda 1 negra y 1 marrón). Si se vende una, poner su tope en 0.
+const CANASTA_TOPE_POR_COLOR = { canasta_negra: 1, canasta_marron: 1 };
+const _applyStockCanasta = applyStockToCards;
+let CANASTAS_TOTAL = null; // stock de la fila CANASTAS MATERAS, sin el tope por color
+applyStockToCards = function () {
+  if (typeof STOCK.canasta_negra === 'number' && !STOCK._canastaTopeado) { CANASTAS_TOTAL = STOCK.canasta_negra; STOCK._canastaTopeado = true; }
+  Object.entries(CANASTA_TOPE_POR_COLOR).forEach(([k, tope]) => { if (typeof STOCK[k] === 'number') STOCK[k] = Math.min(STOCK[k], tope); });
+  return _applyStockCanasta();
+};
 // Stock compartido: entre negras y marrones no se puede pasar del total del Sheet
 function canastasEnCarrito() { return CART.filter(i => /^canasta_/.test(i.key)).reduce((a, i) => a + i.qty, 0); }
 const _addToCartCanasta = addToCart;
 addToCart = function (key, name, price, img, originEl) {
-  const n = /^canasta_/.test(key) ? stockFor(key) : null;
+  const n = /^canasta_/.test(key) ? CANASTAS_TOTAL : null;
   if (n && canastasEnCarrito() >= n) { stockToast(stockLimitText('Canasta matera', n)); flashNoStock(originEl, 'No hay más stock'); return; }
   return _addToCartCanasta(key, name, price, img, originEl);
 };
 const _changeQtyCanasta = changeQty;
 changeQty = function (key, delta) {
-  const n = /^canasta_/.test(key) ? stockFor(key) : null;
+  const n = /^canasta_/.test(key) ? CANASTAS_TOTAL : null;
   if (delta > 0 && n && canastasEnCarrito() + delta > n) { stockToast(stockLimitText('Canasta matera', n)); return; }
   return _changeQtyCanasta(key, delta);
 };
