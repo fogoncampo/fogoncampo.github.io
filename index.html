@@ -342,6 +342,59 @@ nav.scrolled { padding: 0.8rem 3rem; }
   box-shadow: 0 0 0 1px var(--ember); cursor: pointer;
 }
 
+/* ── ORDENAR CATÁLOGO ── */
+.sort-row { display: flex; justify-content: center; align-items: center; gap: 0.5rem; margin: 0 auto 1.1rem; }
+.sort-row label { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--brown-light); }
+.sort-row select {
+  font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; color: var(--brown);
+  background: transparent; border: 1px solid var(--sand); border-radius: 999px;
+  padding: 0.3rem 1.8rem 0.3rem 0.9rem; cursor: pointer; -webkit-appearance: none; appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--ember) 50%), linear-gradient(135deg, var(--ember) 50%, transparent 50%);
+  background-position: calc(100% - 13px) 55%, calc(100% - 8px) 55%; background-size: 5px 5px; background-repeat: no-repeat;
+}
+.sort-row select:focus { outline: none; border-color: var(--ember); }
+.products-grid.orden-plano .grid-group-title,
+.products-grid.orden-plano .combo-group-title { display: none !important; }
+
+.filtro-barra { display: flex; align-items: stretch; max-width: 560px; margin: 0 auto 3rem; background: var(--cream);
+  border: 1px solid var(--sand); border-radius: 16px; box-shadow: 0 4px 16px rgba(61,40,23,0.08); position: relative; z-index: 20; }
+.filtro-barra > div { flex: 1; padding: 0.7rem 1.1rem; margin: 0 !important; display: flex; flex-direction: column; justify-content: center; }
+.filtro-barra .sort-row { position: relative; align-items: flex-start; border-right: 1px solid var(--sand); }
+.filtro-barra .sort-row label, .filtro-barra .sort-row select { display: none; }
+.filtro-barra .price-filter { text-align: left; max-width: none; }
+.filtro-barra .price-filter-label { font-size: 0.66rem; margin: 0 0 0.45rem; }
+.sort-btn { display: flex; flex-direction: column; align-items: flex-start; gap: 0.15rem; width: 100%; background: none; border: none; padding: 0; cursor: pointer; text-align: left; }
+.sort-btn small { font-size: 0.66rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--brown-light); font-family: 'Cormorant Garamond', serif; }
+.sort-btn span { display: flex; align-items: center; gap: 0.45rem; font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--brown-dark); }
+.sort-btn svg { color: var(--ember); flex-shrink: 0; }
+.sort-menu { position: absolute; top: calc(100% + 8px); left: 0; z-index: 30; min-width: 220px; background: var(--cream); border: 1px solid var(--sand);
+  border-radius: 14px; box-shadow: 0 10px 30px rgba(61,40,23,0.18); padding: 0.4rem; display: none; }
+.sort-row.open .sort-menu { display: block; }
+.sort-menu button { display: flex; justify-content: space-between; width: 100%; background: none; border: none; border-radius: 10px;
+  padding: 0.55rem 0.9rem; font-family: 'Cormorant Garamond', serif; font-size: 0.95rem; color: var(--brown-dark); cursor: pointer; text-align: left; }
+.sort-menu button:hover { background: rgba(200,170,110,0.18); }
+.sort-menu button.on { color: var(--ember); font-weight: 700; }
+.sort-menu button.on::after { content: '✓'; }
+@media (max-width: 480px) { .filtro-barra { margin: 0 1rem 2.5rem; } .filtro-barra > div { padding: 0.6rem 0.8rem; } }
+
+/* ── ENVÍO GRATIS: tira fija debajo de las frases, aparece cuando hay algo en el carrito ── */
+.envio-tira { display: none; background: var(--cream); border-top: 1px solid rgba(200,170,110,0.5); margin: 0.85rem 0 -0.85rem; padding: 0.4rem 1rem 0.5rem; cursor: pointer; position: relative; z-index: 3; }
+.envio-tira.show { display: block; }
+.envio-tira p { margin: 0 0 0.3rem; text-align: center; font-size: 0.82rem; color: var(--brown-dark); }
+.envio-tira p b { color: var(--ember); }
+.envio-tira .envio-progreso { max-width: 520px; margin: 0 auto; height: 6px; }
+
+.envio-tira.abajo { position: fixed; z-index: 250; left: 50%; bottom: calc(14px + env(safe-area-inset-bottom));
+  width: min(92vw, 440px); margin: 0; padding: 0.55rem 1.2rem 0.65rem; border-radius: 999px;
+  background: rgba(242, 234, 216, 0.78); -webkit-backdrop-filter: blur(20px) saturate(180%); backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.65); box-shadow: 0 8px 30px rgba(61, 40, 23, 0.22), inset 0 1px 0 rgba(255,255,255,0.5);
+  transform: translate(-50%, calc(100% + 30px)); transition: transform 0.45s cubic-bezier(.2,.9,.3,1.2); display: block; }
+.envio-tira.abajo.show { transform: translate(-50%, 0); }
+.envio-tira.abajo p { font-size: 0.85rem; margin-bottom: 0.35rem; }
+.envio-tira.abajo .envio-progreso { height: 5px; margin: 0 0.3rem; }
+.float-btns, .chat-bubble { transition: bottom 0.45s ease; }
+body.tira-abajo .float-btns, body.tira-abajo .chat-bubble { bottom: calc(1.2rem + 74px); }
+
 /* ── BUSCADOR DE REGALO ── */
 .gift-finder-trigger {
   display: flex; align-items: center; gap: 0.9rem;
@@ -1148,6 +1201,8 @@ footer::before {
 .envio-progreso { height: 10px; border-radius: 999px; background: rgba(123,78,45,0.18); overflow: hidden; margin: 0.6rem 0 0.2rem; }
 .envio-progreso i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #C8AA6E, #7B4E2D); border-radius: 999px; transition: width 0.4s ease; }
 .envio-progreso.ok i { background: #2e7d32; }
+.envio-vacio { padding: 0 0.2rem 1rem; }
+.envio-vacio .cart-envio-msg { text-align: center; }
 .envio-toast { position: fixed; left: 50%; bottom: 1.2rem; transform: translate(-50%, 140%); z-index: 400; background: var(--brown-dark); color: var(--cream); border: 2px solid #C8AA6E; border-radius: 12px; padding: 0.75rem 1rem; font-size: 0.95rem; max-width: 92vw; box-shadow: 0 8px 22px rgba(0,0,0,0.3); transition: transform 0.35s ease; text-align: center; }
 .envio-toast.show { transform: translate(-50%, 0); }
 .envio-toast b { color: #C8AA6E; }
@@ -1776,35 +1831,8 @@ footer::before {
   <a href="https://www.instagram.com/fogonmates/" target="_blank" rel="noopener">Instagram</a>
 </div>
 
-<!-- TICKER FRASES -->
-<div class="frases-ticker">
-  <div class="frases-track" id="frasesTrack">
-    <span class="frase-item">🧉 Las mejores charlas empiezan con un mate.<span class="frase-sep">◆</span></span>
-    <span class="frase-item">🤎 Tradición hecha diseño.<span class="frase-sep">◆</span></span>
-    <span class="frase-item">📦 Envío gratis a sucursal desde $50.000, a todo el país.<span class="frase-sep">◆</span></span>
-    <span class="frase-item">🔥 Hecho a mano, sentido con el alma.<span class="frase-sep">◆</span></span>
-    <span class="frase-item">🌳 Combo camionero + bombilla — $25.500.<span class="frase-sep">◆</span></span>
-    <span class="frase-item">💬 Coordinamos tu compra por WhatsApp.<span class="frase-sep">◆</span></span>
-    <span class="frase-item">🧉 <span class="piezas-count">12</span> piezas únicas, ninguna igual a la otra.<span class="frase-sep">◆</span></span>
-    <span class="frase-item">🐄 Mate vaquita — pintado a mano.<span class="frase-sep">◆</span></span>
-    <span class="frase-item">✨ Imperial de Algarrobo Premium — $27.200.<span class="frase-sep">◆</span></span>
-    <span class="frase-item">🚚 Despachamos por correo a todo el país.<span class="frase-sep">◆</span></span>
-    <span class="frase-item">💛 Sin apuro, como el primer cebado.<span class="frase-sep">◆</span></span>
-    <span class="frase-item">🤎 Fogón Mates — tradición que se comparte.<span class="frase-sep">◆</span></span>
-    <span class="frase-item">🧉 Las mejores charlas empiezan con un mate.<span class="frase-sep">◆</span></span>
-    <span class="frase-item">🤎 Tradición hecha diseño.<span class="frase-sep">◆</span></span>
-    <span class="frase-item">📦 Envío gratis a sucursal desde $50.000, a todo el país.<span class="frase-sep">◆</span></span>
-    <span class="frase-item">🔥 Hecho a mano, sentido con el alma.<span class="frase-sep">◆</span></span>
-    <span class="frase-item">🌳 Combo camionero + bombilla — $25.500.<span class="frase-sep">◆</span></span>
-    <span class="frase-item">💬 Coordinamos tu compra por WhatsApp.<span class="frase-sep">◆</span></span>
-    <span class="frase-item">🧉 <span class="piezas-count">12</span> piezas únicas, ninguna igual a la otra.<span class="frase-sep">◆</span></span>
-    <span class="frase-item">🐄 Mate vaquita — pintado a mano.<span class="frase-sep">◆</span></span>
-    <span class="frase-item">✨ Imperial de Algarrobo Premium — $27.200.<span class="frase-sep">◆</span></span>
-    <span class="frase-item">🚚 Despachamos por correo a todo el país.<span class="frase-sep">◆</span></span>
-    <span class="frase-item">💛 Sin apuro, como el primer cebado.<span class="frase-sep">◆</span></span>
-    <span class="frase-item">🤎 Fogón Mates — tradición que se comparte.<span class="frase-sep">◆</span></span>
-  </div>
-</div>
+<!-- BARRA DE ENVÍO GRATIS (flota abajo) -->
+<div class="envio-tira" id="envioTira" onclick="if (CART.length) openCart(); else document.querySelector('.category-nav').scrollIntoView({ behavior: 'smooth', block: 'center' })"><p id="envioTiraTxt"></p><div class="envio-progreso"><i></i></div></div>
 
 <!-- HERO — full width con video de fondo -->
 <section class="hero">
@@ -1899,9 +1927,23 @@ footer::before {
       <button class="sub-btn" data-sub="bombilla">Mate + bombilla</button>
       <button class="sub-btn" data-sub="yerbera">Mate + yerbera</button>
     </div>
+    <div class="filtro-barra">
+    <div class="sort-row">
+      <label for="sortSelect">Ordenar</label>
+      <select id="sortSelect">
+        <option value="relevantes">Más relevantes</option>
+        <option value="precio-asc">Menor precio</option>
+        <option value="precio-desc">Mayor precio</option>
+        <option value="descuento">Mayor descuento</option>
+        <option value="novedades">Novedades</option>
+      </select>
+      <button type="button" class="sort-btn" id="sortBtn"><small>Ordenar</small><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M7 4v16M3 8l4-4 4 4M17 20V4M13 16l4 4 4-4"/></svg><em id="sortBtnTxt" style="font-style:normal">Más relevantes</em></span></button>
+      <div class="sort-menu" id="sortMenu"><button type="button" data-v="relevantes">Más relevantes</button><button type="button" data-v="precio-asc">Menor precio</button><button type="button" data-v="precio-desc">Mayor precio</button><button type="button" data-v="descuento">Mayor descuento</button><button type="button" data-v="novedades">Novedades</button></div>
+    </div>
     <div class="price-filter">
       <label for="priceRange" class="price-filter-label">Hasta <span id="priceRangeVal">$50.000</span></label>
       <input type="range" id="priceRange" min="6500" max="50000" step="500" value="50000">
+    </div>
     </div>
     <div class="products-grid">
 
@@ -2231,7 +2273,6 @@ footer::before {
           </div>
         </div>
       </div>
-      <h3 class="grid-group-title" data-group="accesorios">Accesorios</h3>
       <!-- COMBO CAMIONERO DE ALGARROBO + YERBERA -->
       <div class="product-card" data-cat="combos" data-combo="yerbera" data-price="35499">
         <div class="product-img-wrap has-gallery" data-gallery-key="combo_camionero_yerbera" onclick="openProductDetail('combo_camionero_yerbera')">
@@ -3306,7 +3347,9 @@ function renderCart() {
   const wrap = document.getElementById('cartItemsWrap');
   const summary = document.getElementById('cartSummary');
   if (!CART.length) {
-    wrap.innerHTML = '<p class="cart-empty">Todavía no agregaste productos.</p>';
+    wrap.innerHTML = '<p class="cart-empty">Todavía no agregaste productos.</p>' +
+      '<div class="envio-vacio"><div class="envio-progreso"><i style="width:0"></i></div>' +
+      '<p class="cart-envio-msg">🚚 Sumá ' + fmtMoney(ENVIO_GRATIS_MIN) + ' y el envío es <b>gratis a todo el país</b> (a sucursal de Correo Argentino).</p></div>';
     summary.style.display = 'none';
     return;
   }
@@ -4448,15 +4491,118 @@ changeQty = function (key, delta) {
   addToCart = function () {
     const antes = CART.reduce((a, i) => a + i.qty, 0);
     const r = _add.apply(this, arguments);
-    if (CART.reduce((a, i) => a + i.qty, 0) > antes && !appliedCoupon) {
-      const total = CART.reduce((a, i) => a + i.price * i.qty, 0);
-      let t = document.getElementById('envioToast');
-      if (!t) { t = document.createElement('div'); t.id = 'envioToast'; t.className = 'envio-toast'; document.body.appendChild(t); }
-      t.innerHTML = total >= ENVIO_GRATIS_MIN ? '🎉 <b>¡Ya tenés envío gratis</b> a todo el país!' : `🚚 Te faltan <b>${fmtMoney(ENVIO_GRATIS_MIN - total)}</b> para el <b>envío gratis</b>`;
-      t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 3800);
-    }
+    if (typeof envioTira === 'function') envioTira();
     return r;
   };
+})();
+</script>
+<script>
+/* ── ORDENAR CATÁLOGO ──
+   Ordena las tarjetas dentro de cada bloque (Mates, cada tipo de combo, Accesorios) sin mover los títulos.
+   "Más relevantes": el orden armado a mano, con lo agotado al final. Cuando haya datos de clics por producto
+   (eventos ver-* y carrito-* en GoatCounter) se puede reordenar esta lista. */
+(function () {
+  const grid = document.querySelector('.products-grid');
+  const sel = document.getElementById('sortSelect');
+  if (!grid || !sel) return;
+  // Más relevantes (hasta tener datos reales de GoatCounter): primero lo que la gente más elige por precio de entrada,
+  // la tapa de la web y los combos completos; lo más caro y de nicho, después.
+  const RELEVANCIA = ['camionero_4_patas', 'criollo_calabaza', 'camionero_clasico', 'imperial_calabaza', 'torpedo',
+    'imperial_premium', 'imperial_alpaca', 'vaquita_ranchero', 'torpedo_crudo', 'imperial_cuero_crudo',
+    'ronda_lista_4_patas', 'ronda_lista_criollo', 'ronda_lista_camionero',
+    'combo_camionero_4_patas', 'combo_criollo', 'combo_camionero',
+    'combo_4_patas_yerbera', 'combo_criollo_yerbera', 'combo_camionero_yerbera',
+    'canasta_negra', 'canasta_marron', 'yerbera', 'bombilla'];
+  const NOVEDADES = ['canasta_negra', 'canasta_marron', 'ronda_lista_criollo', 'ronda_lista_4_patas', 'ronda_lista_camionero',
+    'combo_criollo_yerbera', 'combo_4_patas_yerbera', 'combo_camionero_yerbera'];
+  const allCards = Array.from(grid.querySelectorAll('.product-card'));
+  allCards.forEach((c, i) => { c.dataset.ordenBase = i; });
+  // Bloques: cada título con las tarjetas que le corresponden
+  const bloques = [];
+  const head = sel2 => grid.querySelector(sel2);
+  const grupo = c => (typeof cardGroup === 'function' ? cardGroup(c) : c.dataset.cat);
+  [['mates', head('.grid-group-title[data-group="mates"]'), c => grupo(c) === 'mates'],
+   ['ronda', head('.combo-group-title[data-combo-title="ronda"]'), c => grupo(c) === 'combos' && c.dataset.combo === 'ronda'],
+   ['bombilla', head('.combo-group-title[data-combo-title="bombilla"]'), c => grupo(c) === 'combos' && c.dataset.combo === 'bombilla'],
+   ['yerbera', head('.combo-group-title[data-combo-title="yerbera"]'), c => grupo(c) === 'combos' && c.dataset.combo === 'yerbera'],
+   ['accesorios', head('.grid-group-title[data-group="accesorios"]'), c => grupo(c) === 'accesorios']
+  ].forEach(([n, h, test]) => { if (h) bloques.push({ h, cards: allCards.filter(test) }); });
+  const precio = c => Number(c.dataset.price) || 0;
+  const precioViejo = c => { const o = c.querySelector('.product-price-old'); const n = o ? Number(o.textContent.replace(/[^0-9]/g, '')) : 0; return n > precio(c) ? n : 0; };
+  const descuento = c => { const o = precioViejo(c); return o ? (o - precio(c)) / o : 0; };
+  const key = c => { const w = c.querySelector('[data-gallery-key]'); return w ? w.dataset.galleryKey : ''; };
+  const relevancia = c => { const i = RELEVANCIA.indexOf(key(c)); return i < 0 ? 99 : i; };
+  const novedad = c => { const i = NOVEDADES.indexOf(key(c)); return i < 0 ? 99 : i; };
+  const agotado = c => c.classList.contains('is-soldout') ? 1 : 0;
+  const base = c => Number(c.dataset.ordenBase);
+  const CRITERIOS = {
+    relevantes: (a, b) => agotado(a) - agotado(b) || relevancia(a) - relevancia(b) || base(a) - base(b),
+    'precio-asc': (a, b) => precio(a) - precio(b) || base(a) - base(b),
+    'precio-desc': (a, b) => precio(b) - precio(a) || base(a) - base(b),
+    descuento: (a, b) => descuento(b) - descuento(a) || agotado(a) - agotado(b) || base(a) - base(b),
+    novedades: (a, b) => novedad(a) - novedad(b) || agotado(a) - agotado(b) || base(a) - base(b)
+  };
+  // "Más relevantes" respeta los bloques con sus títulos; el resto ordena todo junto y oculta los títulos
+  function ordenar() {
+    const cmp = CRITERIOS[sel.value] || CRITERIOS.relevantes;
+    const plano = sel.value !== 'relevantes';
+    grid.classList.toggle('orden-plano', plano);
+    if (plano) { allCards.slice().sort(cmp).forEach(c => grid.appendChild(c)); return; }
+    bloques.forEach(({ h, cards }) => {
+      let ref = h;
+      cards.slice().sort(cmp).forEach(c => { ref.after(c); ref = c; });
+    });
+  }
+  window.fogonOrdenar = ordenar;
+  sel.addEventListener('change', () => { ordenar(); if (window.fogonTrack) window.fogonTrack('orden-' + sel.value); });
+  // Cuando llegan stock y precios del Sheet, se vuelve a ordenar
+  ['applyPrices', 'applyStockToCards'].forEach(fn => {
+    const orig = window[fn];
+    if (typeof orig === 'function') window[fn] = function () { const r = orig.apply(this, arguments); try { ordenar(); } catch (e) {} return r; };
+  });
+  ordenar();
+})();
+</script>
+<script>
+// Menú de "Ordenar"
+(function () {
+  const row = document.querySelector('.sort-row'), sel = document.getElementById('sortSelect');
+  if (!row || !sel) return;
+  const pintar = () => { document.getElementById('sortBtnTxt').textContent = sel.options[sel.selectedIndex].text;
+    row.querySelectorAll('.sort-menu button').forEach(b => b.classList.toggle('on', b.dataset.v === sel.value)); };
+  document.getElementById('sortBtn').addEventListener('click', e => { e.stopPropagation(); row.classList.toggle('open'); });
+  row.querySelectorAll('.sort-menu button').forEach(b => b.addEventListener('click', () => {
+    sel.value = b.dataset.v; sel.dispatchEvent(new Event('change')); row.classList.remove('open'); pintar(); }));
+  document.addEventListener('click', () => row.classList.remove('open'));
+  pintar();
+})();
+// Tira de envío gratis: se ve con algo en el carrito (sin cupón) y se llena a medida que suma
+function envioTira() {
+  const t = document.getElementById('envioTira'); if (!t) return;
+  const total = CART.reduce((a, i) => a + i.price * i.qty, 0);
+  // Con el carrito vacío aparece al pasar la portada, como aviso de desde cuánto es gratis
+  const pasoPortada = window.scrollY > window.innerHeight * 0.7;
+  t.classList.toggle('show', !appliedCoupon && (total > 0 || pasoPortada));
+  document.body.classList.toggle('tira-abajo', t.classList.contains('show'));
+  t.classList.toggle('vacia', !total);
+  if (!total) {
+    document.getElementById('envioTiraTxt').innerHTML = '🚚 <b>Envío gratis</b> a todo el país desde ' + fmtMoney(ENVIO_GRATIS_MIN);
+    t.querySelector('.envio-progreso').classList.remove('ok'); t.querySelector('i').style.width = '0%';
+    return;
+  }
+  const ok = total >= ENVIO_GRATIS_MIN;
+  document.getElementById('envioTiraTxt').innerHTML = ok ? '🎉 ¡Tenés <b>envío gratis</b> a todo el país!' : `🚚 Te faltan <b>${fmtMoney(ENVIO_GRATIS_MIN - total)}</b> para el envío gratis`;
+  t.querySelector('.envio-progreso').classList.toggle('ok', ok);
+  t.querySelector('i').style.width = Math.min(100, total / ENVIO_GRATIS_MIN * 100) + '%';
+}
+(function () {
+  const t = document.getElementById('envioTira'); if (t) { document.body.appendChild(t); t.classList.add('abajo'); } // flotando abajo
+  ['recalcTotals', 'renderCart'].forEach(fn => {
+    const orig = window[fn];
+    if (typeof orig === 'function') window[fn] = function () { const r = orig.apply(this, arguments); envioTira(); return r; };
+  });
+  envioTira();
+  window.addEventListener('scroll', () => { if (!CART.length) envioTira(); }, { passive: true });
 })();
 </script>
 <script>
@@ -4464,6 +4610,17 @@ changeQty = function (key, delta) {
 window.fogonTrack = function (evento) {
   try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: 'evento/' + evento, title: evento, event: true }); } catch (e) {}
 };
+// Por producto: ver-<producto> al abrir el detalle y carrito-<producto> al agregarlo (para ordenar por relevancia real)
+(function () {
+  const ver = window.openProductDetail;
+  if (typeof ver === 'function') window.openProductDetail = function (k) { window.fogonTrack('ver-' + k); return ver.apply(this, arguments); };
+  const add = window.addToCart;
+  if (typeof add === 'function') window.addToCart = function (k) {
+    const antes = CART.reduce((a, i) => a + i.qty, 0); const r = add.apply(this, arguments);
+    if (CART.reduce((a, i) => a + i.qty, 0) > antes) window.fogonTrack('carrito-' + k);
+    return r;
+  };
+})();
 document.addEventListener('click', function (e) {
   const a = e.target.closest && e.target.closest('a[href*="wa.me"]');
   if (a && !a.getAttribute('onclick')) window.fogonTrack('wa-' + (a.className.split(' ')[0] || 'link'));
