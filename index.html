@@ -4322,7 +4322,7 @@ getResponse = function (input) {
 })();
 </script>
 <script>
-// MEDICIÓN (propuesta): cuando exista la cuenta de GoatCounter, reemplazar TU-CODIGO y descomentar el script de abajo.
+// MEDICIÓN: GoatCounter (fogoncampo.goatcounter.com) cuenta las visitas y los clics a WhatsApp.
 window.fogonTrack = function (evento) {
   try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: 'evento/' + evento, title: evento, event: true }); } catch (e) {}
 };
@@ -4331,6 +4331,6 @@ document.addEventListener('click', function (e) {
   if (a && !a.getAttribute('onclick')) window.fogonTrack('wa-' + (a.className.split(' ')[0] || 'link'));
 }, true);
 </script>
-<!-- <script data-goatcounter="https://TU-CODIGO.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script> -->
+<script data-goatcounter="https://fogoncampo.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
