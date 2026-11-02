@@ -4548,20 +4548,20 @@ changeQty = function (key, delta) {
 <script>
 /* ── ORDENAR CATÁLOGO ──
    Ordena las tarjetas dentro de cada bloque (Mates, cada tipo de combo, Accesorios) sin mover los títulos.
-   "Más relevantes": el orden armado a mano, con lo agotado al final. Cuando haya datos de clics por producto
-   (eventos ver-* y carrito-* en GoatCounter) se puede reordenar esta lista. */
+   "Más relevantes": según los clics reales de la web (GoatCounter), con lo agotado al final. */
 (function () {
   const grid = document.querySelector('.products-grid');
   const sel = document.getElementById('sortSelect');
   if (!grid || !sel) return;
-  // Más relevantes (hasta tener datos reales de GoatCounter): primero lo que la gente más elige por precio de entrada,
-  // la tapa de la web y los combos completos; lo más caro y de nicho, después.
-  const RELEVANCIA = ['camionero_4_patas', 'criollo_calabaza', 'camionero_clasico', 'imperial_calabaza', 'torpedo',
-    'imperial_premium', 'imperial_alpaca', 'vaquita_ranchero', 'torpedo_crudo', 'imperial_cuero_crudo',
+  // Más relevantes: ranking de GoatCounter del 20/10 al 02/11 (veces al carrito x3 + veces visto), lo arma Medidor.
+  // Los productos sin datos siguen después en el orden a mano. Lo agotado siempre al final.
+  const RELEVANCIA = ['canasta_negra', 'canasta_marron', 'torpedo', 'criollo_calabaza', 'imperial_cuero_crudo',
+    'imperial_premium', 'imperial_alpaca', 'torpedo_crudo', 'yerbera', 'camionero_clasico', 'vaquita_ranchero',
+    'bombilla', 'combo_camionero_yerbera',
+    'camionero_4_patas', 'imperial_calabaza',
     'ronda_lista_4_patas', 'ronda_lista_criollo', 'ronda_lista_camionero',
     'combo_camionero_4_patas', 'combo_criollo', 'combo_camionero',
-    'combo_4_patas_yerbera', 'combo_criollo_yerbera', 'combo_camionero_yerbera',
-    'canasta_negra', 'canasta_marron', 'yerbera', 'bombilla'];
+    'combo_4_patas_yerbera', 'combo_criollo_yerbera'];
   const NOVEDADES = ['canasta_negra', 'canasta_marron', 'ronda_lista_criollo', 'ronda_lista_4_patas', 'ronda_lista_camionero',
     'combo_criollo_yerbera', 'combo_4_patas_yerbera', 'combo_camionero_yerbera'];
   const allCards = Array.from(grid.querySelectorAll('.product-card'));
