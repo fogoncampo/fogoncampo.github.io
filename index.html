@@ -1519,6 +1519,7 @@ footer::before {
   font-weight: 700; color: var(--brown-dark); margin-bottom: 1.4rem;
   position: relative; z-index: 1;
 }
+.ronda-map-afuera { text-align: center; font-size: 0.85rem; color: var(--brown-dark); margin: 0.9rem auto 0; position: relative; z-index: 1; }
 .ronda-map-note { text-align: center; font-size: 0.8rem; color: var(--brown-light); font-style: italic; margin: 0.8rem auto 4rem; max-width: 500px; position: relative; z-index: 1; }
 
 /* mapa SVG interactivo */
@@ -2433,7 +2434,7 @@ footer::before {
     <p class="ronda-how-alt">o avisanos por <a href="https://ig.me/m/fogonmates" target="_blank" rel="noopener" class="ronda-disclaimer-link">DM de Instagram</a></p>
   </div>
 
-  <div class="ronda-counter">🔥 <span id="rondaCounterNum">5</span> fogoneros ya se sumaron a la ronda</div>
+  <div class="ronda-counter">🔥 <span id="rondaCounterNum">6</span> fogoneros ya se sumaron a la ronda</div>
 
   <div class="ronda-grid">
     <div class="ronda-card" onclick="openRondaLightbox(0)">
@@ -2469,6 +2470,13 @@ footer::before {
       <div class="ronda-card-info">
         <div class="ronda-card-user">@valendevanna_</div>
         <div class="ronda-card-caption">@valendevanna_ listo para cebar con su termo y mate Fogón 🧉🔥</div>
+      </div>
+    </div>
+    <div class="ronda-card" onclick="openRondaLightbox(5)">
+      <img loading="lazy" decoding="async" src="ronda_mariagrigera.jpeg" alt="Mate de algarrobo de @mariagrigera">
+      <div class="ronda-card-info">
+        <div class="ronda-card-user">@mariagrigera</div>
+        <div class="ronda-card-caption">@mariagrigera disfrutando su mate de algarrobo en el balcón, entre árboles y al sol 🧉🔥</div>
       </div>
     </div>
   </div>
@@ -2543,6 +2551,7 @@ footer::before {
     </svg>
     <div class="map-tooltip" id="rondaMapTooltip"></div>
   </div>
+  <p class="ronda-map-afuera" id="rondaMapAfuera" hidden></p>
   <div class="ronda-map-legend"><span><span class="dot"></span>Tocá o pasá el mouse sobre un pin para ver la ciudad</span></div>
   <p class="ronda-map-note">Solo mostramos la ciudad y la cantidad de fogoneros — nunca decimos qué foto le corresponde a cada ciudad, para cuidar la privacidad de todos.</p>
 
@@ -3525,6 +3534,7 @@ const RONDA_PHOTOS = [
   { img: 'ronda_tomyandress.jpeg', user: '@tomyandress', caption: '@tomyandress con su mate y su yerbera Fogón, combo completo 🧉🔥' },
   { img: 'ronda_agustina_palermo.jpeg', user: '@agustina.palermoo', caption: '@agustina.palermoo con su torpedo recién llegado, combo Fogón completo 🧉🔥' },
   { img: 'ronda_valendevanna.jpeg', user: '@valendevanna_', caption: '@valendevanna_ listo para cebar con su termo y mate Fogón 🧉🔥' },
+  { img: 'ronda_mariagrigera.jpeg', user: '@mariagrigera', caption: '@mariagrigera disfrutando su mate de algarrobo en el balcón, entre árboles y al sol 🧉🔥' },
 ];
 let rondaLightboxIndex = 0;
 function renderRondaLightbox() {
@@ -3561,6 +3571,67 @@ function showMapTooltip(evt, city, count) {
   tooltip.style.left = (pinRect.left - wrapRect.left + pinRect.width / 2) + 'px';
   tooltip.style.top = (pinRect.top - wrapRect.top) + 'px';
   tooltip.classList.add('visible');
+}
+/* Mapa de fogoneros desde el Sheet: pestaña WEB, columnas "Lugar" y "Fogoneros" (sin nombres de clientes).
+   Si el Sheet no tiene esas columnas, queda el mapa fijo de arriba. Lugares que no están en MAPA_LUGARES
+   (otro país) se muestran en una línea debajo del mapa. */
+const MAPA_LUGARES = {
+  'BUENOS AIRES': [-34.60, -58.38], 'CABA': [-34.60, -58.38], 'CAPITAL FEDERAL': [-34.60, -58.38], 'GRAN BUENOS AIRES': [-34.60, -58.38],
+  'LA PLATA': [-34.92, -57.95], 'MAR DEL PLATA': [-38.00, -57.55], 'TANDIL': [-37.32, -59.13], 'BAHIA BLANCA': [-38.72, -62.27],
+  'PILAR': [-34.46, -58.91], 'TIGRE': [-34.43, -58.58], 'NORDELTA': [-34.40, -58.65],
+  'CORDOBA': [-31.42, -64.18], 'ROSARIO': [-32.95, -60.65], 'SANTA FE': [-31.63, -60.70], 'MENDOZA': [-32.89, -68.84],
+  'SAN JUAN': [-31.54, -68.52], 'SAN LUIS': [-33.30, -66.34], 'LA RIOJA': [-29.41, -66.86], 'CATAMARCA': [-28.47, -65.78],
+  'TUCUMAN': [-26.82, -65.22], 'SALTA': [-24.78, -65.41], 'JUJUY': [-24.19, -65.30], 'SANTIAGO DEL ESTERO': [-27.79, -64.26],
+  'CHACO': [-27.45, -58.99], 'RESISTENCIA': [-27.45, -58.99], 'CORRIENTES': [-27.47, -58.83], 'MISIONES': [-27.37, -55.90],
+  'POSADAS': [-27.37, -55.90], 'FORMOSA': [-26.18, -58.17], 'ENTRE RIOS': [-31.73, -60.53], 'PARANA': [-31.73, -60.53],
+  'LA PAMPA': [-36.62, -64.29], 'SANTA ROSA': [-36.62, -64.29], 'NEUQUEN': [-38.95, -68.06], 'RIO NEGRO': [-40.81, -62.99],
+  'VIEDMA': [-40.81, -62.99], 'BARILOCHE': [-41.13, -71.31], 'CHUBUT': [-43.30, -65.10], 'RAWSON': [-43.30, -65.10],
+  'COMODORO RIVADAVIA': [-45.86, -67.48], 'SANTA CRUZ': [-51.62, -69.22], 'RIO GALLEGOS': [-51.62, -69.22],
+  'TIERRA DEL FUEGO': [-54.80, -68.30], 'USHUAIA': [-54.80, -68.30]
+};
+function fogonMapa(rows) {
+  const norm = v => String(v || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().toUpperCase().replace(/\s+/g, ' ');
+  let lugares = null;
+  for (let r = 0; r < rows.length && !lugares; r++) {
+    const head = rows[r].map(norm), lc = head.indexOf('LUGAR'), nc = head.indexOf('FOGONEROS');
+    if (lc < 0 || nc < 0) continue;
+    lugares = [];
+    for (let k = r + 1; k < rows.length; k++) {
+      const nombre = String(rows[k][lc] || '').trim();
+      if (!nombre) break;
+      const n = parseInt(String(rows[k][nc]).replace(/[^\d]/g, ''), 10);
+      if (n > 0) lugares.push({ nombre, n });
+    }
+  }
+  if (!lugares || !lugares.length) return;
+  lugares.sort((a, b) => b.n - a.n);
+  const svg = document.querySelector('#rondaMapWrap svg');
+  if (!svg) return;
+  svg.querySelectorAll('.map-pin-group, .map-route').forEach(e => e.remove());
+  const xy = ([lat, lon]) => [148.7 + (lon + 58.38) * 9.6, 161.2 + (-34.60 - lat) * 12.1];
+  const ns = 'http://www.w3.org/2000/svg', f = v => v.toFixed(1);
+  const enMapa = lugares.filter(l => MAPA_LUGARES[norm(l.nombre)]), afuera = lugares.filter(l => !MAPA_LUGARES[norm(l.nombre)]);
+  const pts = enMapa.map(l => ({ l, p: xy(MAPA_LUGARES[norm(l.nombre)]) }));
+  pts.slice(1).forEach(({ p }) => {
+    const ln = document.createElementNS(ns, 'line'); ln.setAttribute('class', 'map-route');
+    ln.setAttribute('x1', f(pts[0].p[0])); ln.setAttribute('y1', f(pts[0].p[1])); ln.setAttribute('x2', f(p[0])); ln.setAttribute('y2', f(p[1]));
+    svg.appendChild(ln);
+  });
+  pts.slice().reverse().forEach(({ l, p }, i) => {
+    const grande = l === pts[0].l, [x, y] = p, w = grande ? 9.7 : 8.1, top = grande ? 13.2 : 11.1, tip = grande ? 13.8 : 11.9;
+    const g = document.createElementNS(ns, 'g');
+    g.setAttribute('class', 'map-pin-group'); g.setAttribute('tabindex', '0');
+    g.style.animationDelay = (0.1 + 0.2 * (pts.length - 1 - i)) + 's';
+    const ver = e => showMapTooltip(e, l.nombre, l.n);
+    g.addEventListener('mouseenter', ver); g.addEventListener('click', ver); g.addEventListener('mouseleave', hideMapTooltip);
+    g.innerHTML = `<ellipse class="map-pin-shadow" cx="${f(x)}" cy="${f(y + 1.9)}" rx="${grande ? 9 : 7.5}" ry="${grande ? 3.2 : 2.6}"/>` +
+      `<circle class="map-pin-pulse" cx="${f(x)}" cy="${f(y)}" r="${grande ? 6 : 5}"/>` +
+      `<path class="map-pin-marker" d="M${f(x)},${f(y - top)} C${f(x - w * 0.59)},${f(y - top)} ${f(x - w)},${f(y - top + 4.4)} ${f(x - w)},${f(y - top + 10.3)} C${f(x - w)},${f(y - top + 17.4)} ${f(x)},${f(y + tip)} ${f(x)},${f(y + tip)} C${f(x)},${f(y + tip)} ${f(x + w)},${f(y - top + 17.4)} ${f(x + w)},${f(y - top + 10.3)} C${f(x + w)},${f(y - top + 4.4)} ${f(x + w * 0.59)},${f(y - top)} ${f(x)},${f(y - top)} Z"/>` +
+      `<circle class="map-pin-center" cx="${f(x)}" cy="${f(y - top + 10)}" r="${grande ? 3.4 : 2.8}"/>`;
+    svg.appendChild(g);
+  });
+  const af = document.getElementById('rondaMapAfuera');
+  if (af) { af.hidden = !afuera.length; af.textContent = afuera.length ? '🌎 También en ' + afuera.map(l => `${l.nombre} (${l.n})`).join(', ') : ''; }
 }
 function hideMapTooltip() {
   document.getElementById('rondaMapTooltip').classList.remove('visible');
@@ -4044,7 +4115,9 @@ async function loadStock() {
     const url = STOCK_CSV_URL + (STOCK_CSV_URL.includes('?') ? '&' : '?') + '_=' + Date.now();
     const res = await fetch(url, { cache: 'no-store' });
     if (!res.ok) throw new Error('HTTP ' + res.status);
-    const table = readStockTable(parseCSV(await res.text()));
+    const rows = parseCSV(await res.text());
+    try { fogonMapa(rows); } catch (e) { console.warn('[Mapa]', e.message); }
+    const table = readStockTable(rows);
     if (!Object.keys(table).length) throw new Error('No encontré la tabla "Producto / Stock actual"');
     const next = {};
     Object.entries(STOCK_MAP).forEach(([key, names]) => {
