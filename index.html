@@ -2077,17 +2077,23 @@ footer::before {
         </div>
       </div>
       <!-- CAMIONERO 4 PATAS -->
-      <div class="product-card" data-cat="calabaza" data-price="18500">
-        <div class="product-img-wrap has-gallery" data-gallery-key="camionero_4_patas" onclick="openProductDetail('camionero_4_patas')">
-          <img loading="lazy" decoding="async" class="product-img" src="mate-camionero-4-patas-1.jpeg" alt="Camionero 4 patas" onerror="this.style.background='#D4C4A0'">
+      <div class="product-card" id="camionero-4-patas" data-cat="calabaza" data-price="18500">
+        <div class="product-img-wrap has-gallery" data-gallery-key="camionero_4_patas_negro" onclick="openProductDetail(this.dataset.galleryKey)">
+          <img loading="lazy" decoding="async" class="product-img" src="mate-camionero-4-patas-1.jpeg" alt="Camionero 4 patas negro" onerror="this.style.background='#D4C4A0'">
         </div>
         <div class="product-info">
-          <h3 class="product-name">Camionero 4 patas</h3>
+          <h3 class="product-name">Camionero 4 patas negro</h3>
+          <div class="color-pick" role="group" aria-label="Color">
+            <span class="color-pick-label">Color:</span>
+            <button type="button" class="color-chip active" data-color="negro" aria-pressed="true" onclick="event.stopPropagation(); elegirColor4Patas(this)"><i style="background:#1d1b1a"></i>Negro</button>
+            <button type="button" class="color-chip" data-color="bordo" aria-pressed="false" onclick="event.stopPropagation(); elegirColor4Patas(this)"><i style="background:#6b1f24"></i>Bordó</button>
+            <button type="button" class="color-chip" data-color="suela" aria-pressed="false" onclick="event.stopPropagation(); elegirColor4Patas(this)"><i style="background:#b5733d"></i>Suela</button>
+          </div>
           <p class="product-desc">Mate camionero de calabaza natural forrado en cuero, con virola de acero inoxidable y base de 4 patas para un apoyo firme. Disponible en bordó, negro y suela. Cada pieza es única por las variaciones naturales de la calabaza.</p>
           <div class="product-footer">
             <span class="product-price">$18.500</span>
-            <button class="product-action" onclick="consultarProducto('Camionero 4 patas', '$18.500')">Consultar</button>
-            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart('camionero_4_patas','Camionero 4 patas',18500,'mate-camionero-4-patas-1.jpeg',this)">🛒 Agregar</button>
+            <button class="product-action" onclick="consultarProducto('Camionero 4 patas negro', '$18.500')">Consultar</button>
+            <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart('camionero_4_patas_negro','Camionero 4 patas negro',18500,'mate-camionero-4-patas-1.jpeg',this)">🛒 Agregar</button>
           </div>
         </div>
       </div>
@@ -2715,6 +2721,12 @@ footer::before {
         <button type="button" class="color-chip" data-color="negra"><i style="background:#1d1b1a"></i>Negra</button>
         <button type="button" class="color-chip" data-color="marron"><i style="background:#4a2c1d"></i>Marrón</button>
       </div>
+      <div class="color-pick" id="galleryColorPick4p" role="group" aria-label="Color" hidden>
+        <span class="color-pick-label">Color:</span>
+        <button type="button" class="color-chip" data-color="negro"><i style="background:#1d1b1a"></i>Negro</button>
+        <button type="button" class="color-chip" data-color="bordo"><i style="background:#6b1f24"></i>Bordó</button>
+        <button type="button" class="color-chip" data-color="suela"><i style="background:#b5733d"></i>Suela</button>
+      </div>
       <p class="gallery-detail-desc" id="galleryDetailDesc"></p>
       <ul class="ficha-ventajas">
         <li>🚚 <span><b>Envío gratis</b> a todo el país desde $50.000</span></li>
@@ -2921,6 +2933,9 @@ const PRODUCT_GALLERIES = {
   torpedo_crudo: ['mate-torpedo-cuero-crudo-1.jpeg', 'mate-torpedo-cuero-crudo-2.jpeg', 'mate-torpedo-cuero-crudo-3.jpeg'],
   imperial_alpaca: ['mate-imperial-alpaca-1.jpeg', 'mate-imperial-alpaca-2.jpeg'],
   camionero_4_patas: ['mate-camionero-4-patas-1.jpeg', 'mate-camionero-4-patas-2.jpeg', 'mate-camionero-4-patas-3.jpeg', 'mate-camionero-4-patas-4.jpeg', 'mate-camionero-4-patas-5.jpeg'],
+  camionero_4_patas_negro: ['mate-camionero-4-patas-1.jpeg', 'mate-camionero-4-patas-2.jpeg'],
+  camionero_4_patas_bordo: ['mate-camionero-4-patas-4.jpeg', 'mate-camionero-4-patas-5.jpeg'],
+  camionero_4_patas_suela: ['mate-camionero-4-patas-3.jpeg'],
   combo_criollo: ['mate-criollo-calabaza-cuero-1.jpeg', 'mate-criollo-calabaza-cuero-2.jpeg', 'bombilla-pico-de-loro-acero-inoxidable.jpeg'],
   combo_camionero: ['mate-camionero-algarrobo-1.jpeg', 'bombilla-pico-de-loro-acero-inoxidable.jpeg'],
   combo_camionero_4_patas: ['mate-camionero-4-patas-1.jpeg', 'mate-camionero-4-patas-2.jpeg', 'mate-camionero-4-patas-3.jpeg', 'mate-camionero-4-patas-4.jpeg', 'mate-camionero-4-patas-5.jpeg', 'bombilla-pico-de-loro-acero-inoxidable.jpeg'],
@@ -3901,6 +3916,9 @@ const STOCK_MAP = {
   torpedo_crudo:           ['TORPEDO CRUDO'],
   imperial_alpaca:         ['IMPERIALES DE ALPACA LISA'],
   camionero_4_patas:       ['CAMIONERO 4 PATAS'],
+  camionero_4_patas_negro: ['CAMIONERO 4 PATAS'],
+  camionero_4_patas_bordo: ['CAMIONERO 4 PATAS'],
+  camionero_4_patas_suela: ['CAMIONERO 4 PATAS'],
   imperial_premium:        ['IMPERIALES DE ALGARROBO'],
   vaquita_ranchero:        ['VAQUITA'],
   camionero_clasico:       ['CAMIONEROS'],
@@ -4472,7 +4490,7 @@ getResponse = function (input) {
       (esperaCurado && /^\s*(de\s+)?(calabaza|algarrobo)\s*$/.test(normalize(input)));
     if (['curar', 'curado', 'curo', 'curarlo', 'estrenar', 'primer uso', 'preparar'].some(has) && !has('calabaza') && !has('algarrobo')) vizEsperaCurado = true;
     if (prod && !esCombo && !esCurado) {
-      const p = vizProducts().find(x => x.key === prod);
+      const p = vizProducts().find(x => x.key === prod) || vizProducts().find(x => x.key.startsWith(prod + '_'));
       if (p) {
         let estado;
         if (p.stock === 0) estado = 'Ahora está <b>agotado</b> 😕 Si querés, te avisamos cuando vuelva a entrar.';
@@ -4551,6 +4569,27 @@ function elegirColorCanasta(chip) {
   });
   if (typeof applyStockToCards === 'function') applyStockToCards();
 }
+// Camionero 4 patas: un producto en tres colores (negro, bordó, suela). Cada color muestra solo sus fotos.
+// El stock es el total de la fila CAMIONERO 4 PATAS, compartido entre los tres colores; en el carrito van en líneas separadas.
+const COLORES_4P = { negro: ['Camionero 4 patas negro', 'mate-camionero-4-patas-1.jpeg'], bordo: ['Camionero 4 patas bordó', 'mate-camionero-4-patas-4.jpeg'], suela: ['Camionero 4 patas suela', 'mate-camionero-4-patas-3.jpeg'] };
+function elegirColor4Patas(chip) {
+  const card = chip.closest('.product-card');
+  const color = chip.dataset.color, [nombre, img] = COLORES_4P[color], key = 'camionero_4_patas_' + color;
+  card.querySelectorAll('.color-chip').forEach(c => { const on = c === chip; c.classList.toggle('active', on); c.setAttribute('aria-pressed', on); });
+  const wrap = card.querySelector('[data-gallery-key]');
+  wrap.setAttribute('data-gallery-key', key);
+  wrap.dataset.cover = img;
+  const im = card.querySelector('.product-img');
+  im.src = img; im.alt = nombre;
+  card.querySelector('.product-name').textContent = nombre;
+  card.querySelectorAll('[onclick]').forEach(el => {
+    const oc = el.getAttribute('onclick');
+    const nc = oc.replace(/addToCart\('camionero_4_patas_\w+','[^']*',([\d.]+),'[^']*'/, `addToCart('${key}','${nombre}',$1,'${img}'`)
+                 .replace(/consultarProducto\('Camionero 4 patas [^']*'/, `consultarProducto('${nombre}'`);
+    if (nc !== oc) el.setAttribute('onclick', nc);
+  });
+  if (typeof applyStockToCards === 'function') applyStockToCards();
+}
 // Link directo (historias de Instagram): fogoncampo.github.io/#canasta-matera abre la canasta negra;
 // #canasta-matera-marron, la marrón.
 function abrirCanastaDesdeLink() {
@@ -4590,6 +4629,21 @@ applyStockToCards = function () {
     }
   }
   return _applyStockCanasta();
+};
+// Stock compartido del 4 patas: entre los tres colores no se puede pasar del total del Sheet
+const ES_4P_COLOR = k => /^camionero_4_patas_(negro|bordo|suela)$/.test(k);
+function cuatroPatasEnCarrito() { return CART.filter(i => ES_4P_COLOR(i.key)).reduce((a, i) => a + i.qty, 0); }
+const _addToCart4p = addToCart;
+addToCart = function (key, name, price, img, originEl) {
+  const n = ES_4P_COLOR(key) ? stockFor(key) : null;
+  if (n && cuatroPatasEnCarrito() >= n) { stockToast(stockLimitText('Camionero 4 patas', n)); flashNoStock(originEl, 'No hay más stock'); return; }
+  return _addToCart4p(key, name, price, img, originEl);
+};
+const _changeQty4p = changeQty;
+changeQty = function (key, delta) {
+  const n = ES_4P_COLOR(key) ? stockFor(key) : null;
+  if (delta > 0 && n && cuatroPatasEnCarrito() + delta > n) { stockToast(stockLimitText('Camionero 4 patas', n)); return; }
+  return _changeQty4p(key, delta);
 };
 // Stock compartido: entre negras y marrones no se puede pasar del total del Sheet
 function canastasEnCarrito() { return CART.filter(i => /^canasta_/.test(i.key)).reduce((a, i) => a + i.qty, 0); }
@@ -4631,7 +4685,7 @@ changeQty = function (key, delta) {
   const RELEVANCIA = ['canasta_negra', 'canasta_marron', 'torpedo', 'criollo_calabaza', 'imperial_cuero_crudo',
     'imperial_premium', 'imperial_alpaca', 'torpedo_crudo', 'yerbera', 'camionero_clasico', 'vaquita_ranchero',
     'bombilla', 'combo_camionero_yerbera',
-    'camionero_4_patas', 'imperial_calabaza',
+    'camionero_4_patas_negro', 'camionero_4_patas_bordo', 'camionero_4_patas_suela', 'imperial_calabaza',
     'ronda_lista_4_patas', 'ronda_lista_criollo', 'ronda_lista_camionero',
     'combo_camionero_4_patas', 'combo_criollo', 'combo_camionero',
     'combo_4_patas_yerbera', 'combo_criollo_yerbera'];
@@ -4752,6 +4806,21 @@ function envioTira() {
     });
     return r;
   };
+  const pick4 = document.getElementById('galleryColorPick4p');
+  const orig4 = window.openProductDetail;
+  window.openProductDetail = function (key) {
+    const r = orig4.apply(this, arguments);
+    const m = /^camionero_4_patas_(negro|bordo|suela)$/.exec(key);
+    pick4.hidden = !m;
+    if (m) pick4.querySelectorAll('.color-chip').forEach(c => { const on = c.dataset.color === m[1]; c.classList.toggle('active', on); c.setAttribute('aria-pressed', on); });
+    return r;
+  };
+  pick4.querySelectorAll('.color-chip').forEach(chip => chip.addEventListener('click', () => {
+    const card = document.getElementById('camionero-4-patas');
+    const fuera = card && card.querySelector(`.color-chip[data-color="${chip.dataset.color}"]`);
+    if (fuera) elegirColor4Patas(fuera);
+    window.openProductDetail('camionero_4_patas_' + chip.dataset.color);
+  }));
   pick.querySelectorAll('.color-chip').forEach(chip => chip.addEventListener('click', () => {
     const card = document.getElementById('canasta-matera');
     const fuera = card && card.querySelector(`.color-chip[data-color="${chip.dataset.color}"]`);
